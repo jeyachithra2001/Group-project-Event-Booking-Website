@@ -13,16 +13,37 @@ header{
   transition: 0.2s;
 }
 
-/* Menu icon next to title */
-.menuicon{
-  cursor: pointer;
-  transition: all 0.2s ease;
+.menu-icon{
+    display: none; /* HIDE on desktop */
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
 }
-.menuicon:hover{
-  transform: scale(1.05);
-}
-.menuicon:active{
-  transform: scale(0.95);
+
+/* Mobile View - Show menu icon */
+@media screen and (max-width: 768px){
+    .menu-icon{
+        display: block; /* SHOW on mobile */
+    }
+    .nav-links{
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #111119;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 20px;
+        display: none; /* Hidden by default on mobile */
+        border-top: 1px solid #222;
+    }
+    .nav-links.active{
+        display: flex; /* Show when clicked */
+    }
+    .navbar{
+        flex-wrap: wrap;
+    }
 }
 
 /* Icon bar */

@@ -31,6 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
       menuicon.innerHTML = '<i class="fa-solid fa-xmark text-[14px]"></i>';
     }
   });
+  
+const menuIcon = document.getElementById('menuIcon');
+const navLinks = document.getElementById('navLinks');
+
+menuIcon.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    // Change icon to X when open
+    menuIcon.innerHTML = navLinks.classList.contains('active') 
+        ? '<i class="fa-solid fa-xmark"></i>' 
+        : '<i class="fa-solid fa-bars"></i>';
+});
 
   // Cart
   cartBtn?.addEventListener('click', (e) => {
