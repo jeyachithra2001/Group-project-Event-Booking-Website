@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+  <title>Sign In - MAGIK</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-[#efe6ff] min-h-screen flex items-center justify-center p-4">
+
+<div class="bg-white rounded-[24px] p-8 w-full max-w-[400px]">
+  <a href="index.html" class="text-[12px]"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Home</a>
+  <h1 class="font-bold text-[24px] mt-4">Welcome Back</h1>
+  <p class="text-[12px] text-gray-500 mt-1">Sign in to continue booking</p>
+
+  <form class="mt-6 space-y-4" onsubmit="event.preventDefault(); window.location.href='explore-events.html'">
+    <input type="email" placeholder="Email" required class="w-full border rounded-full px-4 py-3 text-[13px] outline-none focus:border-[#e8469e]">
+    <input type="password" placeholder="Password" required class="w-full border rounded-full px-4 py-3 text-[13px] outline-none focus:border-[#e8469e]">
+    <button type="submit" class="w-full bg-black text-white rounded-full py-3 text-[13px] font-bold hover:bg-[#e8469e] transition">SIGN IN</button>
+  </form>
+
+  <p class="text-center text-[12px] mt-6">New user? <a href="signup.html" class="text-[#e8469e] font-bold hover:underline">Sign Up</a></p>
+</div>
+
+</body>
+</html>

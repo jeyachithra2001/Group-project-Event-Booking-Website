@@ -1,0 +1,76 @@
+/* MAGIK - Main Styles */
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+body{
+  background: #efe6ff;
+}
+
+/* Header */
+header{
+  transition: 0.2s;
+}
+
+/* Menu icon next to title */
+.menuicon{
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.menuicon:hover{
+  transform: scale(1.05);
+}
+.menuicon:active{
+  transform: scale(0.95);
+}
+
+/* Icon bar */
+.cartBtn, #bellBtn, #userBtn{
+  transition: all 0.2s ease;
+}
+.cartBtn:hover, #bellBtn:hover, #userBtn:hover{
+  background: white;
+  transform: scale(1.05);
+}
+
+/* Dropdowns animation */
+.dropdownList, #cartDropdown, #bellDropdown, #userDropdown{
+  animation: dropdownIn 0.25s ease;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Event cards - your existing */
+.event-card{
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+}
+.image__container{
+  width: 50%;
+  height: 50%;
+  display: flex;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+.event-card img{
+  width: 50%;
+  height: 50%;
+  display: flex;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+.events-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
