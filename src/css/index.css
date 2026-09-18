@@ -1,36 +1,51 @@
-/* MAGIK - Main Styles */
+
 
 * {
   font-family: 'Inter', sans-serif;
 }
 
 body{
-  background: whitesmoke;
+  background: pink;
 }
 
-/* Header */
-header{
-  transition: 0.2s;
-}
 
 .menu-icon{
     display: none; /* HIDE on desktop */
     font-size: 1.5rem;
     cursor: pointer;
-    color: whitesmoke;
+    color: whitesmoke; 
+}  
+
+.nav-links{
+  display: flex;
+  gap: 20px;
+}
+.menu-icon{
+  display: none; /* hidden on laptop */
 }
 
-/* Mobile View - Show menu icon */
-@media screen and (max-width: 768px){
-    .menu-icon{
-        display: block; /* SHOW on mobile */
-    }
+@media (max-width: 768px){
+  .nav-links{
+    display: none; /* hide full menu on mobile */
+  }
+  .menu-icon{
+    display: block; /* show hamburger on mobile */
+  }
+}
+    @media (max-width: 768px){
+  .nav-links{
+    display: none; /* hide full menu on mobile */
+  }
+  .menu-icon{
+    display: block; /* show hamburger on mobile */
+  }
+}
     .nav-links{
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
-        background: black;
+        background: plum;
         flex-direction: column;
         align-items: center;
         padding: 20px 0;
@@ -44,7 +59,7 @@ header{
     .navbar{
         flex-wrap: wrap;
     }
-}
+
 
 /* Icon bar */
 .cartBtn, #bellBtn, #userBtn{
@@ -101,4 +116,11 @@ header{
 .event-card{
         width:400px;
        }
-    
+    @media (max-width: 600px){
+  .event-card{
+    flex: 1 1 100%;
+  }
+  .event-card img{
+    height: 200px;
+  }
+}

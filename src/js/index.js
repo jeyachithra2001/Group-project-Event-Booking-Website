@@ -82,3 +82,41 @@ document.addEventListener('click', () => {
     if (e.key === 'Escape') closeAll();
   });
 });
+const cartBtn = document.getElementById('cartBtn');
+const bellBtn = document.getElementById('bellBtn');
+const userBtn = document.getElementById('userBtn');
+const cartDropdown = document.getElementById('cartDropdown');
+const bellDropdown = document.getElementById('bellDropdown');
+const userDropdown = document.getElementById('userDropdown');
+const menuDropdown = document.getElementById('dropdownList');
+const menuicon = document.getElementById('menuicon');
+
+function closeAll(){
+  cartDropdown?.classList.add('hidden');
+  bellDropdown?.classList.add('hidden');
+  userDropdown?.classList.add('hidden');
+  menuDropdown?.classList.add('hidden');
+  if(menuicon) menuicon.innerHTML = '<i class="fa-solid fa-bars text-[14px]"></i>';
+}
+
+cartBtn?.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const isHidden = cartDropdown.classList.contains('hidden');
+  closeAll();
+  if(isHidden) cartDropdown.classList.remove('hidden');
+});
+
+bellBtn?.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const isHidden = bellDropdown.classList.contains('hidden');
+  closeAll();
+  if(isHidden) bellDropdown.classList.remove('hidden');
+});
+
+userBtn?.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const isHidden = userDropdown.classList.contains('hidden');
+  closeAll();
+  if(isHidden) userDropdown.classList.remove('hidden');
+});
+
