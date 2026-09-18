@@ -42,6 +42,13 @@ menuIcon.addEventListener('click', () => {
         ? '<i class="fa-solid fa-xmark"></i>' 
         : '<i class="fa-solid fa-bars"></i>';
 });
+document.addEventListener('click', () => {
+    if (open) {
+      open = false;
+      dropdownList.classList.add('hidden');
+      menuicon.innerHTML = '<i class="fa-solid fa-bars text-[14px]"></i>';
+    }
+  });
 
   // Cart
   cartBtn?.addEventListener('click', (e) => {

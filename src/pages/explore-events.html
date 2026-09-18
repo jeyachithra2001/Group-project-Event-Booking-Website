@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAGIK</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/css/index.css">
+
+
+ <!-- HEADER -->
+  <head>
+<header class="flex items-center justify-between px-4 py-3 bg-white rounded-[16px] mx-3 mt-3 border">
+<!-- MENU ICON NEXT TO TITLE -->
+    <div class="relative flex items-center gap-2 p-3">    
+      <h1 class="font-bold text-[22px] flex items-center gap-2">
+  <span class="bg-black text-white w-7 h-7 flex items-center justify-center rounded-lg text-xs">M</span>
+      MAGIK</h1>
+
+  <!-- MENU ICON -->
+  <button id="menuicon" class="w-9 h-9 bg-white border rounded-full flex items-center justify-center hover:bg-black hover:text-white transition">
+    <i class="fa-solid fa-bars text-[14px]"></i>
+  </button>
+
+  <!-- DROPDOWN LIST - shows on click -->
+  <div id="dropdownList" class="hidden absolute top-[48px] left-0 w-64 bg-white border rounded-2xl shadow-xl z-50 overflow-hidden">
+    <a href="index.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-house mr-2"></i> Home</span> <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+    </a>
+    <a href="src/pages/exploreevents.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-compass mr-2"></i> Explore Events</span> <span class="bg-[#E6E6FF] px-2 py-0.5 rounded-full text-[10px]">48</span>
+    </a>
+    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-cart-shopping mr-2"></i> Cart</span> <span class="bg-[#e8469e] text-white px-2 py-0.5 rounded-full text-[10px]">2</span>
+    </a>
+    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-bell mr-2"></i> Notifications</span> <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+    </a>
+    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-user mr-2"></i> Profile</span>
+    </a>
+    <hr>
+    <a href="mybookings.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-ticket mr-2"></i> My Bookings</span>
+    </a>
+    <a href="wishlist.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]">
+      <span><i class="fa-solid fa-heart mr-2"></i> Wishlist</span>
+    </a>
+  </div>
+</div>
+  <!-- RIGHT: Your cart/bell/user icons -->
+  <!-- TOP ICON BAR - Interactive -->
+<div class="flex items-center bg-[#E6E6FF] p-2 rounded-lg w-fit gap-0 ml-auto mr-4 mt-2">
+
+  <!-- CART -->
+  <div class="relative">
+    <button id="cartBtn" class="w-10 h-10 flex items-center justify-center hover:bg-white rounded-full transition relative">
+      <i class="fa-solid fa-cart-shopping text-[16px]"></i>
+      <span id="cartCount" class="absolute -top-1 -right-1 bg-[#e8469e] text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">2</span>
+    </button>
+    <!-- Cart Dropdown -->
+    <div id="cartDropdown" class="hidden absolute right-0 top-12 w-72 bg-white border rounded-2xl shadow-xl p-4 z-50">
+      <h4 class="font-bold text-[13px] mb-3">My Cart (2)</h4>
+      <div class="space-y-3">
+        <div class="flex gap-3 text-[11px]">
+          <img src="src/pages/images/7.jpg" class="w-10 h-10 rounded-lg object-cover">
+          <div class="flex-1"><p class="font-semibold">AR Rahman Live</p><p class="text-gray-400">Rs.2,49,000</p></div>
+          <button class="text-red-400"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <a href="src/pages/images/payment.html" class="block bg-black text-white text-center text-[11px] py-2.5 rounded-full mt-4">Checkout</a>
+    </div>
+  </div>
+
+
+  <!-- NOTIFICATION -->
+  <div class="relative">
+    <button id="bellBtn" class="w-10 h-10 flex items-center justify-center hover:bg-white rounded-full transition relative">
+      <i class="fa-solid fa-bell text-[16px]"></i>
+      <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+    </button>
+    <!-- Notification Dropdown -->
+    <div id="bellDropdown" class="hidden absolute right-0 top-12 w-72 bg-white border rounded-2xl shadow-xl p-4 z-50">
+      <h4 class="font-bold text-[13px] mb-3">Notifications</h4>
+      <div class="space-y-2 text-[11px]">
+        <p class="p-2 bg-[#f8f6ff] rounded-lg">✅ Your booking for Corporate Event confirmed!</p>
+        <p class="p-2 bg-[#f8f6ff] rounded-lg">🎉 Offer: 20% off on Birthday events</p>
+      </div>
+    </div>
+  </div>
+<!-- USER -->
+  <div class="relative">
+    <button id="userBtn" class="w-10 h-10 flex items-center justify-center hover:bg-white rounded-full transition">
+      <i class="fa-solid fa-user text-[16px]"></i>
+    </button>
+    <!-- User Dropdown -->
+    <div id="userDropdown" class="hidden absolute right-0 top-12 w-48 bg-white border rounded-2xl shadow-xl p-2 z-50">
+      <a href="index.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff] rounded-xl"><i class="fa-solid fa-user"></i> My Profile</a>
+      <a href="src/pages/images/my-bookings.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff] rounded-xl"><i class="fa-solid fa-ticket"></i> My Bookings</a>
+      <a href="src/pages/images/wishlist.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff] rounded-xl"><i class="fa-solid fa-heart"></i> Wishlist</a>
+      <hr class="my-1">
+      <a href="index.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-red-50 text-red-500 rounded-xl"><i class="fa-solid fa-right-from-bracket"></i> signout</a>
+    </div>
+  </div>
+
+  
+   </ul>
+
+</header>
+ 
+    </div>
+  </div>
