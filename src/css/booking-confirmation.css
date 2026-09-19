@@ -1,0 +1,25 @@
+body{
+    padding: 30px;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+.summary__event__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+} 
+::placeholder{
+    font-size: 12px;
+}
+#upi-details{
+    display: none;
+}
+#card-details{
+    display: none;
+}
+.details{
+    width: 85%;
+    margin: 20px auto;
+}

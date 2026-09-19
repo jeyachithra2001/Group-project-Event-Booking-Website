@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magik</title>
+    <!-- STYLE CSS LINK -->
+    <link rel="stylesheet" href="../css/payment.css"> 
+    <!-- TAILWIND CSS LINK -->
+    <link rel="stylesheet" href="../css/output.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- MAIN SECTION -->
+     
+    <main class="main flex flex-col md:flex-row gap-10">
+
+        <!-- LEFT SECTION -->
+        <section class="flex flex-col gap-10 md:w-1/2">
+            <article class="border-2 border-gray-400 rounded-xl shadow-md">
+                <h3 class="font-bold text-xl border-b-2 border-gray-400 p-3">Booking Summary</h3>
+
+                <div class=" summary__event h-44 border-b-2 border-gray-400 flex gap-5 p-3">
+                    <div class="summary__event__img">
+                        <img id="paymentEventImage" class="object-cover rounded-md" alt="image">
+                    </div>
+                    <div>
+                        <h5 class="font-bold" id="paymentEventTitle"></h5>
+                        <p class="my-4 text-gray-500" id="paymentEventDate"><i class="fa-solid fa-calendar-days"></i></p>
+                        <p class="text-gray-500" id="paymentEventLocation"><i class="fa-solid fa-location-dot"></i></p>
+                    </div>
+                </div>
+
+                <div class="p-3">
+                    <h5 class="font-bold">Ticket Details</h5>
+                    <div class="flex justify-between p-1">
+                        <span id="ticketType">VIP Pass </span>
+                        <span id="ticketPrice">₹4,999</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span id="ticketQuantity">Quantity: 2</span>
+                        <span id="ticketSubTotal">₹9,998</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between bg-[#f5f5f5] p-3 font-bold rounded-b-xl">
+                    <p>Total Amount</p>
+                    <span id="paymentTotalAmount"></span>
+                </div>
+            </article>
+
+            <!-- SECURE SECTION -->
+            <article class="flex gap-3 shadow-md border-2 border-gray-400 p-3 rounded-xl ">
+                <div>
+                    <p class="text-4xl text-green-700"><i class="fa-solid fa-lock"></i></p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-green-700">Secure Payment</h3>
+                    <p class="text-gray-500">Your Information is Safe and Secure with us</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- RIGHT SECTION -->
+        <section class="p-3 border-2 border-gray-400 rounded-xl shadow-md md:w-1/2">
+            <!-- ATTENDEE DETAILS -->
+            <form id="payment-form">
+                <article class="">
+                        <h3 class="font-bold text-xl mb-3">Attendee Details</h3>
+                        <label class="block">Full Name</label>
+                        <input class="input border-2 border-gray-400 rounded-md w-full p-1 mt-1 mb-3" type="text" id="fullName" required placeholder="Full Name">
+                        <label class="block">Email Address</label>
+                        <input class="input border-2 border-gray-400 rounded-md w-full p-1 mt-1 mb-3" type="email" id="email" required placeholder="Email Address">
+                        <label class="block">Phone Number</label>
+                        <input class="input border-2 border-gray-400 rounded-md w-full p-1 mt-1 mb-3" type="tel" id="phoneNo" required placeholder="Phone Number">
+                </article>
+
+                <!-- PAYMENT SECTION -->
+                <article class="mt-5">
+                    <h3 class="font-bold text-xl mb-3">Payment Method</h3>
+
+                    <div class="border-2 border-gray-400 p-3 rounded-md">
+                        <input type="radio" name="payment-method" value="upi"><label> UPI</label>
+                        <div class="flex gap-5 items-center pl-10">
+                            <span><img src="../assets/logos/gpay-image.png" class="w-10" alt="logo"></span>
+                            <span><img src="../assets/logos/paytm-image.webp" class="w-10" alt="logo"></span>
+                            <span><img src="../assets/logos/PhonePe-img.png" class="w-16" alt="logo"></span>
+                            <span><img src="../assets/logos/bhim-upi-image.webp" class="w-11" alt="logo"></span>
+                        </div>
+                        <div id="upi-details">
+                            <input type="text" id="upiId" placeholder="riya@upi" class="border-2 border-gray-400 w-full p-2 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-400 p-3 rounded-md mt-3 flex justify-between items-start">
+                        <div>
+                            <input type="radio" name="payment-method" value="card"><label> Credit/ Debit Card</label>
+                            <div id="card-details">
+                                <input type="text" id="cardNo" class="border-2 border-gray-400 mt-4 w-full p-2 rounded-md" placeholder="Card Number" maxlength="19">
+                                <input type="text" id="cardName" class="border-2 border-gray-400 my-3 w-full p-2 rounded-md" placeholder="Name on Card">
+                                <input type="text" id="expiry" class="border-2 border-gray-400 w-full p-2 rounded-md" placeholder="MM/YY" maxlength="5">
+                                <input type="password" id="cvv" class="border-2 border-gray-400 my-3 w-full p-2 rounded-md" placeholder="CVV" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="flex gap-3 w-64">
+                            <span><img src="../assets/logos/paytm-image.webp" class="w-10" alt="logo"></span>
+                            <span><img src="../assets/logos/icici-image.png" class="w-9" alt="logo"></span>
+                            <span><img src="../assets/logos/Rupay-image.png" class="w-14" alt="logo"></span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-400 p-3 rounded-md mt-3 flex justify-between items-center">
+                        <div>
+                            <input type="radio" name="payment-method" value="netbanking"><label> Net Banking</label>
+                        </div>
+                        <div>
+                            <span><img src="../assets/logos/bank-image.png" class="w-8" alt="logo"></span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-400 p-3 rounded-md mt-3">
+                        <input type="radio" name="payment-method" value="wallet"><label> Wallet</label>
+                    </div>
+                </article>
+                <div>
+                    <button type="submit" id="payAmountBtn" class="bg-[#0631f0] text-white w-full mt-6 p-2 rounded-md shadow-md">Pay ₹<span>9,998</span></button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+<script src="../js/payment.js"></script>
+</body>
+
+</html>

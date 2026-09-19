@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magik</title>
+    <!-- STYLE CSS LINK -->
+    <link rel="stylesheet" href="../css/booking-confirmation.css">
+    <!-- TAILWIND CSS LINK -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <main>
+        <section class="text-center">
+            <img src="../assets/images/success_img.webp" class="w-28 h-28 object-cover inline" alt="success-img">
+            <h2 class="font-bold text-xl m-3">Your Booking is Confirmed!</h2>
+            <p class="text-gray-700 leading-loose">Thank You for Choosing Magik Event Booking. Your Booking has been
+                <br> Successfully Confirmed!
+            </p>
+        </section>
+
+        <section class="details flex justify-around items-center bg-blue-100 border-2 border-gray-400 p-3 rounded-md">
+            <div>
+                <p>Booking ID</p>
+                <p id="bookingId" class="font-bold text-lg mt-2">EBK786789</p>
+            </div>
+            <div>
+                <button id="copyBtn" class="bg-blue-900 px-3 py-2 text-white rounded-md">Copy</button>
+            </div>
+        </section>
+
+        <section class="details border-2 border-gray-400 rounded-md">
+            <article>
+                <div class="h-44 border-b-2 border-gray-200 flex gap-5 p-3">
+                    <div class="summary__event__img">
+                        <img src="../assets/images/download (1).jpg" object-cover rounded-md alt="image">
+                    </div>
+                    <div>
+                        <h5 class="font-bold">Coldplay Live in Concert</h5>
+                        <p class="my-4 text-gray-500"><i class="fa-solid fa-calendar-days"></i> 25 Sep 2006 - 7.00 PM
+                        </p>
+                        <p class="text-gray-500"><i class="fa-solid fa-location-dot"></i> M Chidambaram stadium,
+                            Bangalore</p>
+                    </div>
+            </article>
+
+            <article>
+                <div class="flex justify-between p-3 border-b-2 border-gray-200">
+                    <div>
+                        <p>Ticket Types</p>
+                        <p class="font-bold">VIP Pass</p>
+                    </div>
+                    <div>
+                        <p>Quantity</p>
+                        <p class="font-bold">2</p>
+                    </div>
+                    <div>
+                        <p>Total Amount</p>
+                        <p class="font-bold">₹<span>9,998</span></p>
+                    </div>
+                </div>
+                </div>
+            </article>
+
+            <article>
+                <div class="text-center">
+                    <img src="../assets/images/dummy-qr.jpg" class="w-32 inline my-3" alt="QR">
+                    <p>Scan this QR code at the Venue gate</p>
+                </div>
+                <div class="flex justify-center gap-5 m-6">
+                    <button class="bg-blue-900 text-white p-2 border-2 rounded-md w-48 md:w-64 lg:w-80 border-blue-900"><i class="fa-solid fa-download"></i> Download Ticket</button>
+                    <button class="text-blue-900 p-2 border-2 rounded-md w-48 md:w-64 lg:w-80 border-blue-900"><a href="my-bookings.html">View my Bookings</a></button>
+                </div>
+            </article>
+        </section>
+
+        <section class="details flex gap-8 bg-blue-100 rounded-md p-3 px-10 items-center">
+            <div>
+                <p class="text-2xl"><i class="fa-solid fa-envelope"></i></i></p>
+            </div>
+            <div>
+                <p>A Confirmation email has been sent to</p>
+                <p class="font-bold leading-loose">riya@gmail.com</p>
+            </div>
+        </section>
+
+    </main>
+
+<script src="../js/booking-confirmation.js"></script>
+</body>
+
+</html>
