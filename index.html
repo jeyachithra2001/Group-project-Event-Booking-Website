@@ -1,292 +1,256 @@
 <!DOCTYPE html>
-<html>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAGIK</title>
-<link href="./src/output.css" rel="stylesheet">
+<html lang="en">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="src/css/index.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventra — Discover Amazing Events Near You</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
 
- <!-- HEADER -->
-  <head>
-<header class="flex items-center justify-between px-4 py-3 bg-purple-950 text-white rounded-2xl mx-3 mt-3 border-black">
-<!-- MENU ICON NEXT TO TITLE -->
-    <div class="relative flex items-center gap-2 p-3">    
-      <h1 class="font-bold text-[36px] flex items-center gap-2">
-  <span class="bg-white text-black w-5 h-7 flex items-center justify-center rounded-lg text-xl">M</span>
-      MAGIK</h1>
-  <!-- MENU ICON -->
-  <button id="menuicon" class="w-9 h-9 bg-purple-300 border rounded-full flex items-center justify-center transition-relative hover:bg-black hover:text-white md:hidden ">
-    <i class="fa-solid fa-bars text-[14px]"></i>
-  </button>
+  <!-- 1. Auth guard: runs first, so a logged-out visitor is sent to signup/login before anything paints -->
+  <script src="src/js/common.js"></script>
 
-  <!-- DROPDOWN LIST - shows on click -->
-  <div id="dropdownList" class="hidden absolute top[48px] left-0 w-64 bg-white border rounded-2xl shadow-xl  top-full z-50 overflow: visible">
-    <a href="index.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF] text-black">
-      <span><i class="fa-solid fa-house mr-2"></i> Home</span> 
-      <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
-    </a>
-    <a href="src/pages/explore-events.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold text-black hover:bg-[#E6E6FF]">
-      <span><i class="fa-solid fa-compass mr-2"></i> Explore Events</span> <span class="bg-[#E6E6FF] px-2 py-0.5 rounded-full text-black text-[10px]">48</span>
-    </a>
-    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF]  text-black">
-      <span><i class="fa-solid fa-cart-shopping mr-2"></i> Cart</span> 
-      <span class="bg-[#e8469e] text-black px-2 py-0.5 rounded-full text-[10px]">2</span>
-    </a>
-    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF] text-black">
-      <span><i class="fa-solid fa-bell mr-2"></i> Notifications</span> <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-    </a>
-    <a href="#" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF] text-black">
-      <span><i class="fa-solid fa-user mr-2"></i> Profile</span>
-    </a>
-    <hr>
-    <a href="src/pages/my-bookings.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF] text-black">
-      <span><i class="fa-solid fa-ticket mr-2"></i> My Bookings</span>
-    </a>
-    <a href="src/pages/wishlist.html" class="flex items-center justify-between px-4 py-3 text-[12px] font-semibold hover:bg-[#E6E6FF] text-black">
-      <span><i class="fa-solid fa-heart mr-2"></i> Wishlist</span>
-    </a>
-  </div>
-</div>
-  <!-- RIGHT: Your cart/bell/user icons -->
-  <!-- TOP ICON BAR - Interactive -->
-<div class="flex items-center bg-purple-300 p-1 rounded-lg w-fit gap-0 ml-auto mr-4 mt-2 ">
+  <!-- 2. Fonts: one normal stylesheet link with display=optional. The header text is drawn once, in its
+          final font (or the fallback) and never re-flows when the web font arrives. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=optional">
 
-  <!-- CART -->
-  <div class="relative">
-    <button id="cartBtn" class="w-8 h-7 flex items-center justify-center hover:bg-white text-black rounded-full transition relative">
-      <i class="fa-solid fa-cart-shopping text-[16px]"></i>
-      <span id="cartCount" class="absolute -top-1 -right-1 bg-[#e8469e] text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">2</span>
-    </button>
-    <!-- Cart Dropdown -->
-    <div id="cartDropdown" class="hidden absolute right-0 top-12 w-72 bg-white text-black border rounded-2xl shadow-xl p-4 z-50">
-      <h4 class="font-bold text-[13px] mb-3">My Cart (2)</h4>
-      <div class="space-y-3">
-        <div class="flex gap-3 text-[11px]">
-          <img src="src/assets/images/7.jpg" class="w-10 h-10 rounded-lg object-cover">
-          <div class="flex-1"><p class="font-semibold">AR Rahman Live</p><p class="text-gray-400">Rs.2,49,000</p></div>
-          <button class="text-red-400"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+  <!-- 3. Styles -->
+  <link rel="stylesheet" href="src/css/index.css">
+</head>
+
+<body>
+
+  <!-- Header (identical on every page so it never changes while you navigate) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
+        Eventra
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html" class="active">Home</a>
+        <a href="src/pages/explore-events.html">Explore Events</a>
+        <a href="src/pages/my-bookings.html">My Bookings</a>
+        <a href="src/pages/wishlist.html">Wishlist</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <path d="M12 20.5S3 14.9 3 8.9C3 5.9 5.3 3.8 8 3.8c1.7 0 3.3.9 4 2.3.7-1.4 2.3-2.3 4-2.3 2.7 0 5 2.1 5 5.1 0 6-9 11.6-9 11.6Z" stroke="currentColor" stroke-width="1.7" />
+          </svg>
+        </button>
+        <button class="icon-btn avatar-btn" aria-label="Account">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" stroke-width="1.7" />
+            <path d="M4.5 20c1.3-3.6 4.2-5.5 7.5-5.5s6.2 1.9 7.5 5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
-      <a href="src/assets/images/payment.html" class="block bg-black text-white text-center text-[11px] py-2.5 rounded-full mt-4">Checkout</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
 
-  <!-- NOTIFICATION -->
-  <div class="relative">
-    <button id="bellBtn" class="w-10 h-10 flex items-center justify-center hover:bg-white text-black rounded-full transition relative">
-      <i class="fa-solid fa-bell text-[16px]"></i>
-      <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-    </button>
-    <!-- Notification Dropdown -->
-    <div id="bellDropdown" class="hidden absolute right-0 top-12 w-72 bg-white text-black border rounded-2xl shadow-xl p-4 z-50">
-      <h4 class="font-bold text-[13px] mb-3">Notifications</h4>
-      <div class="space-y-2 text-[11px]">
-        <p class="p-2 bg-[#f8f6ff] text-black rounded-lg">✅ Your booking for Corporate Event confirmed!</p>
-        <p class="p-2 bg-[#f8f6ff] text-black rounded-lg">🎉 Offer: 20% off on Birthday events</p>
-      </div>
-    </div>
-  </div>
-<!-- USER -->
-  <div class="relative">
-    <button id="userBtn" class="w-10 h-10 flex items-center justify-center hover:bg-white  text-black rounded-full transition">
-      <i class="fa-solid fa-user text-[16px]"></i>
-    </button>
-    <!-- User Dropdown -->
-    <div id="userDropdown" class="hidden absolute right-0 top-12 w-48 bg-white  text-black border rounded-2xl shadow-xl p-2 z-50">
-      <a href="index.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff]  text-black rounded-xl"><i class="fa-solid fa-user"></i> My Profile</a>
-      <a href="src/assets/images/my-bookings.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff]  text-black rounded-xl"><i class="fa-solid fa-ticket"></i> My Bookings</a>
-      <a href="src/assets/images/wishlist.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-[#f8f6ff]  text-black rounded-xl"><i class="fa-solid fa-heart"></i> Wishlist</a>
-      <hr class="my-1">
-      <a href="index.html" class="flex items-center gap-2 p-2.5 text-[12px] hover:bg-red-50 text-red-500 rounded-xl"><i class="fa-solid fa-right-from-bracket"></i> signout</a>
-    </div>
-  </div>
-  </ul>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="index.html" class="active">Home</a>
+      <a href="src/pages/explore-events.html">Explore Events</a>
+      <a href="src/pages/my-bookings.html">My Bookings</a>
+      <a href="src/pages/wishlist.html">Wishlist</a>
+    </nav>
+  </header>
 
-</header>
- 
-   </div>
-  </div>
-  </head>
-  <body>
-           <body class="bg-[#efe6ff] p-6">
-        <div>
-      <ul class="hidden md-flex gap-5 text-gray-600   p-5 md:flex ">
-    
-       <li>
-                <a  href="index.html" class="hover:underline hover:text-black">Home</a>
-            </li>
-            <li>
-                <a href="src/pages/explore-events.html" class="hover:underline hover:text-black">Explore Events</a>
-            </li> 
-            <li>
-                <a href="src/pages/event-details.html"  class="hover:underline hover:text-black">Event details</a>
-            </li>
-          <li></li>
-          <a href="src/pages/my-bookings.html"  class="hover:underline hover:text-black">My Booking</a>
-          </li>
-          <li>
-          <a href="src/pages/wishlist.html"  class="hover:underline hover:text-black">Wishlist</a>
-         </li>            
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true"></div>
 
-           <h1>✅BEST CHOICE FOR MEMORABLE DAYS⭐</h1>        
-          </ul>
-          </div>
-         
-    <body>
-      <section class="mx-3 mt-4 h-[450px] rounded-[24px] relative overflow-hidden border">
-  <img src="src/assets/images/9.jpg" class="absolute inset-0 w-full h-full object-cover">
-  <div class="absolute inset-0 bg-black/40"></div>
+      <div class="hero-inner">
+        <h1>
+          Discover amazing<br>
+          events near you
+        </h1>
 
-  <div class="relative z-10 p-8 h-full flex flex-col justify-end">
-    <h1 class="text-white text-[40px] font-black">AR Rahman Live in Chennai</h1>
-    <p class="text-white/80 text-[13px] mt-2">Dec 25 • YMCA Grounds • Starting at Rs.999</p>
-    <a href="#" class="bg-white text-black w-fit px-6 py-3 rounded-full text-[12px] font-bold mt-4">Book Now</a>
-  </div>
-
-</section>
-   
-      
-<div class="bg-white rounded-2xl[24px] p-10 min-h-[90vh] flex flex-col flex-wrap justify-center items-center text-center width:100%">
-  <h1 class="text-6xl font-bold">Host Unforgettable<br>
-    <span class="text-[black]">Events</span></h1>
-  <p class="bg-[#e8469e] text-white  rounded-full text-sm p-5">Corporate • Wedding • Birthday • Concert • College • Private Parties</p>
-  <div class="flex gap-4 mt-8">
-    <a href="signup.html" class="bg-[#e8469e] text-white px-7 py-3 rounded-full text-sm">SIGN UP </a>
-    <h1>IF YOU ARE ALREADY AN USER</h1>
-    <div class="icon">→</div>
-    <a href="signin.html" class="bg-[#e8469e] text-white border px-7 py-3 rounded-full text-sm">SIGN IN </a>
-  </div>
-  <div class="mt-12 flex gap-2 text-[11px] text-black-400">
-    <span class="bg-pink-50 px-3 py-1 rounded-full border">✓ 100+ Trusted Vendors</span>
-    <span class="bg-pink-50 px-3 py-1 rounded-full border">✓ Chennai Based</span>
-    <span class="bg-pink-50 px-3 py-1 rounded-full border">✓ Instant Booking</span>
-  </div>
-</div>
-  </div>
-    
-<!--Moments-->
-              <div class="events-container"> 
-             <div class="event-card">
-                  <h3>CONCERT</h3>
-                    <p>Rs.2,49,000/-</p>
-                    <img src="src/assets/images/6.jpg">
-                    </div>
-                    <div class="event-card">
-            <p>COLLEGE CULTURALS</p>
-            <p>4,99,999/-</p>
-            <img src="src/assets/images/8.jpg">
-            </div>
-            <div class="event-card">
-    <p>SPORTSMEET</p>
-    <p>Rs.99,999/-</p>
-     <img src="src/assets/images/7.jpg">
-    </div>
-         <div class="event-card">
-   <p>FIRST BIRTHDAY</p>
-      <p>Rs.1,99,999/-</p>
-    <img src="src/assets/images/3.jpg">
-  </div>
-
-  <div class="event-card">
-    <p>BEACH WEDDING</p>
-       <p>Rs.5,00,000/-</p>
-    <img src="src/assets/images/5.jpg">
-  </div>
-
-  <div class="event-card">
-    <p>CORPORATE MEETUP</p>
-        <p>Rs.1,50,000/-</p>
-    <img src="src/assets/images/2.jpg">
-  </div>
-  
-  <div class="event-card">
-   <p>TEAM OUTING</p>
-        <p>Rs.1,99,999/-</p>
-    <img src="src/assets/images/4.jpg">
-  </div>
-  <div class="event-card">
-      <p>BABY SHOWER</p>
-        <p>Rs.2,99,999/-</p>
-    <img src="src/assets/images/1.jpg">
-  </div>
-  </div>
-<!-- FOOTER -->
-<footer class="bg-purple-950 text-white rounded-2xl t-[24px] mt-10">
-  <div class="max-w-[1600px] mx-auto p-8 md:p-12">
-
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-
-      <!-- 1 - Logo -->
-      <div>
-        <div class="font-bold text-[22px] flex items-center gap-2">
-          <span class="bg-black text-white w-7 h-7 flex items-center justify-center rounded-lg text-xs">M</span>MAGIK
-        </div>
-        <p class="text-black-400 text-[15px] mt-4 leading-relaxed">
-          Host Unforgettable Events. Chennai based event management for Corporate, Wedding, Birthday, Concert.
+        <p class="hero-sub">
+          From concerts to workshops — find the best events around you
+          and turn an ordinary evening into a story worth telling.
         </p>
-        <div class="flex gap-3 mt-5">
-          <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#e8469e] transition"><i class="fa-brands fa-instagram text-[12px]"></i></a>
-          <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#e8469e] transition"><i class="fa-brands fa-whatsapp text-[12px]"></i></a>
-          <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#e8469e] transition"><i class="fa-solid fa-envelope text-[12px]"></i></a>
+
+        <form class="search-bar" id="searchForm" role="search">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+
+          <input type="text" id="searchInput" placeholder="Search events, artists, or venues"
+            aria-label="Search events, artists, or venues">
+
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" aria-label="Browse by category">
+      <div class="section-inner">
+
+        <div class="cat-row" id="catRow">
+
+          <button class="cat-item" data-cat="Music">
+            <img class="cat-icon" src="assets/icons/category-music.svg" width="26" height="26" alt="">
+            Music
+          </button>
+
+          <button class="cat-item" data-cat="Sports">
+            <img class="cat-icon" src="assets/icons/category-sports.svg" width="26" height="26" alt="">
+            Sports
+          </button>
+
+          <button class="cat-item" data-cat="Arts & Culture">
+            <img class="cat-icon" src="assets/icons/category-arts.svg" width="26" height="26" alt="">
+            Arts &amp; Culture
+          </button>
+
+          <button class="cat-item" data-cat="Food & Drink">
+            <img class="cat-icon" src="assets/icons/category-food.svg" width="26" height="26" alt="">
+            Food &amp; Drink
+          </button>
+
+          <button class="cat-item" data-cat="Business">
+            <img class="cat-icon" src="assets/icons/category-business.svg" width="26" height="26" alt="">
+            Business
+          </button>
+
+          <button class="cat-item" data-cat="Workshops">
+            <img class="cat-icon" src="assets/icons/category-workshops.svg" width="26" height="26" alt="">
+            Workshops
+          </button>
+
+          <button class="cat-item cat-more" data-cat="More">
+            <img class="cat-icon" src="assets/icons/category-more.svg" width="26" height="26" alt="">
+            More
+          </button>
+
+        </div>
+      </div>
+    </section>
+    <!-- Featured Events -->
+    <section class="events-section" aria-labelledby="featured-heading">
+      <div class="section-inner">
+        <div class="section-head">
+          <h2 id="featured-heading">Featured events</h2>
+
+          <a href="src/pages/explore-events.html" class="view-all">
+            View all →
+          </a>
+        </div>
+        <div class="event-grid" id="featuredGrid"></div>
+      </div>
+    </section>
+    <!-- Popular Events -->
+    <section class="events-section alt" aria-labelledby="popular-heading">
+      <div class="section-inner">
+        <div class="section-head">
+          <h2 id="popular-heading">Popular this month</h2>
+          <a href="src/pages/explore-events.html" class="view-all">
+            View all →
+          </a>
+        </div>
+        <div class="event-grid" id="popularGrid"></div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <div class="section-inner newsletter-inner">
+
+        <div class="newsletter-copy">
+          <h2>Never miss an event again</h2>
+          <p>
+            Get the best events picked for you,
+            delivered to your inbox every week.
+          </p>
+        </div>
+
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="Enter your email address" aria-label="Email address"
+            required>
+
+          <button type="submit">Subscribe</button>
+        </form>
+
+        <p class="newsletter-status" id="newsletterStatus" role="status">
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <span class="logo-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          </span>
+          Eventra
+        </a>
+        <p>Find the best events near you and make memories that last.</p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="#">About us</a>
+          <a href="#">Help centre</a>
+          <a href="#">Terms of service</a>
+          <a href="#">Privacy policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Explore</h3>
+          <a href="src/pages/explore-events.html">Browse events</a>
+          <a href="src/pages/my-bookings.html">My bookings</a>
+          <a href="src/pages/wishlist.html">Wishlist</a>
         </div>
       </div>
 
-      <!-- 2 - Quick Links -->
-      <div>
-        <h4 class="font-semibold text-[16px] mb-4">Explore</h4>
-        <ul class="space-y-2 text-[15x] text-black-400">
-          <li><a href="index.html" class="hover:text-white">Home</a></li>
-          <li><a href="src/pages/explore-events.html" class="hover:text-white">Explore Events (48)</a></li>
-          <li><a href="My bookings.html" class="hover:text-white">My Bookings</a></li>
-          <li><a href="Wishlist.html" class="hover:text-white">Wishlist</a></li>
-        </ul>
-      </div>
-
-      <!-- 3 - Categories -->
-      <div>
-        <h4 class="font-semibold text-[13px] mb-4">Categories</h4>
-        <ul class="space-y-2 text-[12px] text-black-400">
-          <li><a href="#" class="hover:text-white">Corporate Events</a></li>
-          <li><a href="#" class="hover:text-white">Wedding Planning</a></li>
-          <li><a href="#" class="hover:text-white">Birthday Parties</a></li>
-          <li><a href="#" class="hover:text-white">Concert & College Fest</a></li>
-        </ul>
-      </div>
-
-      <!-- 4 - Contact -->
-      <div>
-        <h4 class="font-semibold text-[15px] mb-4">Contact Chennai</h4>
-        <ul class="space-y-3 text-[16px] text-black-400">
-          <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-[#e8469e]"></i> T.Nagar, Chennai - 600017</li>
-          <li class="flex gap-2"><i class="fa-solid fa-phone mt-1 text-[#e8469e]"></i> +91 98765 43210</li>
-          <li class="flex gap-2"><i class="fa-solid fa-envelope mt-1 text-[#e8469e]"></i> hello@magik.events</li>
-        </ul>
-        <div class="mt-5 bg-white/10 rounded-full p-1.5 flex">
-          <input placeholder="Your email" class="bg-transparent text-[15px] px-4 py-1.5 outline-none flex-1 placeholder:text-black-400 border black-400">
-          <button class="bg-[#e8469e] text-white text-[15px] px-4 py-1.5 rounded-full font-semibold">Join</button>
+      <div class="footer-social">
+        <h3>Follow along</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Facebook">f</a>
         </div>
       </div>
-
     </div>
-     <div class="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-[15px] text-black-400">
-      <p>© 2026 MAGIK Events. Chennai Based • 100+ Trusted Vendors • Instant Booking</p>
-      <div class="flex gap-4">
-        <a href="#" class="hover:text-white">Privacy</a>
-        <a href="#" class="hover:text-white">Terms</a>
-        <a href="#" class="hover:text-white">Refund</a>
-      </div>
-    </div>
+    <p class="footer-copyright">© 2026 Eventra. All rights reserved.</p>
+  </footer>
 
-  </div>
-</footer>
-<script src="src/js/index.js"></script>
-</body></html>
+  <!-- Page scripts -->
+  <script src="src/js/data.js"></script>
+  <script src="src/js/index.js"></script>
+</body>
 
-
-    
-
-   
+</html>

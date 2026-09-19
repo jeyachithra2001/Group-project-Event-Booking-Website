@@ -12,6 +12,22 @@
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
+   0. Where am I?  index.html lives in the site root; every other page lives in src/pages/.
+   ROOT  = prefix that reaches root files (index.html, assets/) from the current page
+   PAGES = prefix that reaches the src/pages/ folder from the current page
+   --------------------------------------------------------------------------- */
+const IN_PAGES = /\/pages\/[^/]*$/.test(window.location.pathname);
+const ROOT = IN_PAGES ? "../../" : "";
+const PAGES = IN_PAGES ? "" : "src/pages/";
+
+/** Bookings/orders saved in localStorage may hold an image path from an older folder layout
+    (e.g. "../assets/images/x.jpg"). Rebuild it from the file name so it works from any page. */
+function imageSrc(path) {
+  const m = String(path || "").match(/assets\/images\/[^?#]+$/);
+  return m ? ROOT + m[0] : path;
+}
+
+/* ---------------------------------------------------------------------------
    1. Auth storage + guard
    --------------------------------------------------------------------------- */
 const USERS_KEY = "eb_users";
@@ -50,7 +66,7 @@ const Auth = {
   },
   /** Where a logged-out visitor should land: signup for a brand-new visitor, login otherwise. */
   entryPage() {
-    return this.users().length ? "login.html" : "signup.html";
+    return PAGES + (this.users().length ? "login.html" : "signup.html");
   },
 
   async hashPassword(password, salt) {
@@ -118,15 +134,15 @@ const Auth = {
       sessionStorage.removeItem("eb_pending_order");
       sessionStorage.removeItem("eb_last_booking");
     } catch (e) { /* ignore */ }
-    window.location.replace("login.html");
+    window.location.replace(PAGES + "login.html");
   },
 
   /** Only allow redirects to another page of this site (never to an external URL). */
   safeNext(value) {
-    if (!value) return "index.html";
+    if (!value || /^index\.html/i.test(value)) return ROOT + "index.html";
     return /^[a-z][a-z-]*\.html(\?[^#\s]*)?$/i.test(value) && !/^(login|signup)\.html/i.test(value)
       ? value
-      : "index.html";
+      : ROOT + "index.html";
   }
 };
 
@@ -135,11 +151,11 @@ const Auth = {
 (function guard() {
   const isPublic = document.documentElement.getAttribute("data-auth") === "public";
   if (isPublic) {
-    if (Auth.isLoggedIn()) window.location.replace("index.html");
+    if (Auth.isLoggedIn()) window.location.replace(ROOT + "index.html");
     return;
   }
   if (!Auth.isLoggedIn()) {
-    const here = window.location.pathname.split("/").pop() + window.location.search;
+    const here = (window.location.pathname.split("/").pop() || "index.html") + window.location.search;
     const target = Auth.entryPage();
     window.location.replace(target + (here && here !== "index.html" ? "?next=" + encodeURIComponent(here) : ""));
   }
@@ -251,7 +267,7 @@ function eventCardHTML(ev) {
   const saved = isWishlisted(ev.id);
   return `
     <article class="event-card" data-id="${ev.id}">
-      <a href="event-details.html?id=${encodeURIComponent(ev.id)}" class="event-card-link">
+      <a href="${PAGES}event-details.html?id=${encodeURIComponent(ev.id)}" class="event-card-link">
         <div class="event-thumb">
           <img src="${ev.image}" alt="${esc(ev.title)}" width="600" height="450" loading="lazy" decoding="async">
           <button type="button" class="wishlist-toggle${saved ? " is-saved" : ""}" data-wishlist="${ev.id}" aria-pressed="${saved}" aria-label="${saved ? "Remove from wishlist" : "Add to wishlist"}">
@@ -315,12 +331,12 @@ function initHeader() {
           input.scrollIntoView({ behavior: "smooth", block: "center" });
           input.focus({ preventScroll: true });
         } else {
-          window.location.href = "explore-events.html#search";
+          window.location.href = PAGES + "explore-events.html#search";
         }
       });
     }
 
-    if (wishBtn) wishBtn.addEventListener("click", () => (window.location.href = "wishlist.html"));
+    if (wishBtn) wishBtn.addEventListener("click", () => (window.location.href = PAGES + "wishlist.html"));
 
     if (accountBtn && user) {
       const menu = document.createElement("div");
@@ -328,8 +344,8 @@ function initHeader() {
       menu.setAttribute("role", "menu");
       menu.innerHTML =
         '<div class="account-menu-user"><strong>' + esc(user.name) + "</strong><span>" + esc(user.email) + "</span></div>" +
-        '<a role="menuitem" href="my-bookings.html">My Bookings</a>' +
-        '<a role="menuitem" href="wishlist.html">Wishlist</a>' +
+        '<a role="menuitem" href="' + PAGES + 'my-bookings.html">My Bookings</a>' +
+        '<a role="menuitem" href="' + PAGES + 'wishlist.html">Wishlist</a>' +
         '<button type="button" role="menuitem" class="menu-logout" id="logoutBtn">Log out</button>';
       actions.appendChild(menu);
       accountBtn.setAttribute("aria-haspopup", "true");

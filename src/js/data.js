@@ -1,7 +1,7 @@
 /* ==========================================================================
    Eventra — Event catalogue
    Single source of truth for every page. Every image points at a local file in
-   assets/images/ (paths are relative to the pages/ folder).
+   assets/images/ (paths are relative to the site root; they are adjusted automatically for pages in src/pages/).
    Naming:  <event-id>.jpg = cover photo,  <event-id>-2.jpg, -3.jpg … = gallery.
    ========================================================================== */
 
@@ -17,12 +17,12 @@ const EVENTS = [
     "organizer": "Dream Events",
     "rating": 4.8,
     "reviews": 2500,
-    "image": "../assets/images/coldplay-live.jpg",
+    "image": "assets/images/coldplay-live.jpg",
     "gallery": [
-      "../assets/images/coldplay-live.jpg",
-      "../assets/images/coldplay-live-2.jpg",
-      "../assets/images/coldplay-live-3.jpg",
-      "../assets/images/coldplay-live-4.jpg"
+      "assets/images/coldplay-live.jpg",
+      "assets/images/coldplay-live-2.jpg",
+      "assets/images/coldplay-live-3.jpg",
+      "assets/images/coldplay-live-4.jpg"
     ],
     "about": "Get ready for an unforgettable night with Coldplay! Experience their biggest hits, stunning visuals and a magical atmosphere never before seen on an Indian stage.",
     "highlights": [
@@ -60,11 +60,11 @@ const EVENTS = [
     "organizer": "Wave Collective",
     "rating": 4.6,
     "reviews": 1840,
-    "image": "../assets/images/music-festival-2026.jpg",
+    "image": "assets/images/music-festival-2026.jpg",
     "gallery": [
-      "../assets/images/music-festival-2026.jpg",
-      "../assets/images/music-festival-2026-2.jpg",
-      "../assets/images/music-festival-2026-3.jpg"
+      "assets/images/music-festival-2026.jpg",
+      "assets/images/music-festival-2026-2.jpg",
+      "assets/images/music-festival-2026-3.jpg"
     ],
     "about": "Three stages, twelve acts, one unforgettable night. Music Festival 2026 brings together the biggest names in indie, electronic and hip-hop for a marathon celebration of sound.",
     "highlights": [
@@ -97,11 +97,11 @@ const EVENTS = [
     "organizer": "Flavour Republic",
     "rating": 4.5,
     "reviews": 960,
-    "image": "../assets/images/food-carnival.jpg",
+    "image": "assets/images/food-carnival.jpg",
     "gallery": [
-      "../assets/images/food-carnival.jpg",
-      "../assets/images/food-carnival-2.jpg",
-      "../assets/images/food-carnival-3.jpg"
+      "assets/images/food-carnival.jpg",
+      "assets/images/food-carnival-2.jpg",
+      "assets/images/food-carnival-3.jpg"
     ],
     "about": "Sixty stalls, one appetite. Sample street food and fine dining mashups from the city's most loved kitchens, with live cooking stations and dessert pop-ups all day long.",
     "highlights": [
@@ -134,11 +134,11 @@ const EVENTS = [
     "organizer": "NextGen Ventures",
     "rating": 4.7,
     "reviews": 1120,
-    "image": "../assets/images/tech-conference.jpg",
+    "image": "assets/images/tech-conference.jpg",
     "gallery": [
-      "../assets/images/tech-conference.jpg",
-      "../assets/images/tech-conference-2.jpg",
-      "../assets/images/tech-conference-3.jpg"
+      "assets/images/tech-conference.jpg",
+      "assets/images/tech-conference-2.jpg",
+      "assets/images/tech-conference-3.jpg"
     ],
     "about": "A full day of keynotes, panels and hands-on workshops covering AI, climate tech and the future of work — led by founders and researchers shaping the next decade.",
     "highlights": [
@@ -171,11 +171,11 @@ const EVENTS = [
     "organizer": "Laugh Riot Productions",
     "rating": 4.9,
     "reviews": 640,
-    "image": "../assets/images/standup-comedy.jpg",
+    "image": "assets/images/standup-comedy.jpg",
     "gallery": [
-      "../assets/images/standup-comedy.jpg",
-      "../assets/images/standup-comedy-2.jpg",
-      "../assets/images/standup-comedy-3.jpg"
+      "assets/images/standup-comedy.jpg",
+      "assets/images/standup-comedy-2.jpg",
+      "assets/images/standup-comedy-3.jpg"
     ],
     "about": "An intimate night of sharp, unfiltered comedy from four of the country's fastest-rising stand-up acts. Small room, big laughs, zero mercy.",
     "highlights": [
@@ -208,10 +208,10 @@ const EVENTS = [
     "organizer": "Stillwater Wellness",
     "rating": 4.8,
     "reviews": 310,
-    "image": "../assets/images/yoga-retreat.jpg",
+    "image": "assets/images/yoga-retreat.jpg",
     "gallery": [
-      "../assets/images/yoga-retreat.jpg",
-      "../assets/images/yoga-retreat-2.jpg"
+      "assets/images/yoga-retreat.jpg",
+      "assets/images/yoga-retreat-2.jpg"
     ],
     "about": "Wake up with the hills. A sunrise flow, guided breathwork and a plant-based brunch designed to reset your week — mats and props provided.",
     "highlights": [
@@ -237,18 +237,18 @@ const EVENTS = [
     "id": "art-workshop",
     "title": "Art Workshop",
     "category": "Arts & Culture",
-    "date": "2026-11-13",
+    "date": "2026-09-01",
     "time": "10:00 AM",
     "venue": "Studio Canvas",
     "city": "Bangalore",
     "organizer": "Studio Canvas Collective",
     "rating": 4.6,
     "reviews": 210,
-    "image": "../assets/images/art-workshop.jpg",
+    "image": "assets/images/art-workshop.jpg",
     "gallery": [
-      "../assets/images/art-workshop.jpg",
-      "../assets/images/art-workshop-2.jpg",
-      "../assets/images/art-workshop-3.jpg"
+      "assets/images/art-workshop.jpg",
+      "assets/images/art-workshop-2.jpg",
+      "assets/images/art-workshop-3.jpg"
     ],
     "about": "A hands-on watercolour and ink workshop for all skill levels. Take home a finished piece and the techniques to keep making more.",
     "highlights": [
@@ -276,11 +276,11 @@ const EVENTS = [
     "organizer": "Wave Collective",
     "rating": 4.5,
     "reviews": 480,
-    "image": "../assets/images/music-festival-nov.jpg",
+    "image": "assets/images/music-festival-nov.jpg",
     "gallery": [
-      "../assets/images/music-festival-nov.jpg",
-      "../assets/images/music-festival-nov-2.jpg",
-      "../assets/images/music-festival-nov-3.jpg"
+      "assets/images/music-festival-nov.jpg",
+      "assets/images/music-festival-nov-2.jpg",
+      "assets/images/music-festival-nov-3.jpg"
     ],
     "about": "The autumn edition of the city's favourite touring festival, with a fresh line-up spanning folk, funk and electronica.",
     "highlights": [
@@ -308,11 +308,11 @@ const EVENTS = [
     "organizer": "Modern Canvas Trust",
     "rating": 4.7,
     "reviews": 190,
-    "image": "../assets/images/art-exhibition.jpg",
+    "image": "assets/images/art-exhibition.jpg",
     "gallery": [
-      "../assets/images/art-exhibition.jpg",
-      "../assets/images/art-exhibition-2.jpg",
-      "../assets/images/art-exhibition-3.jpg"
+      "assets/images/art-exhibition.jpg",
+      "assets/images/art-exhibition-2.jpg",
+      "assets/images/art-exhibition-3.jpg"
     ],
     "about": "A curated showcase of 40 contemporary South Asian artists working across painting, sculpture and new media.",
     "highlights": [
@@ -340,11 +340,11 @@ const EVENTS = [
     "organizer": "RunCity India",
     "rating": 4.6,
     "reviews": 870,
-    "image": "../assets/images/marathon-2026.jpg",
+    "image": "assets/images/marathon-2026.jpg",
     "gallery": [
-      "../assets/images/marathon-2026.jpg",
-      "../assets/images/marathon-2026-2.jpg",
-      "../assets/images/marathon-2026-3.jpg"
+      "assets/images/marathon-2026.jpg",
+      "assets/images/marathon-2026-2.jpg",
+      "assets/images/marathon-2026-3.jpg"
     ],
     "about": "5K, 10K and half-marathon routes through the city's green heart, finishing with a runners' village of food, music and medals.",
     "highlights": [
@@ -377,11 +377,11 @@ const EVENTS = [
     "organizer": "LevelUp Events",
     "rating": 4.8,
     "reviews": 1560,
-    "image": "../assets/images/gaming-expo.jpg",
+    "image": "assets/images/gaming-expo.jpg",
     "gallery": [
-      "../assets/images/gaming-expo.jpg",
-      "../assets/images/gaming-expo-2.jpg",
-      "../assets/images/gaming-expo-3.jpg"
+      "assets/images/gaming-expo.jpg",
+      "assets/images/gaming-expo-2.jpg",
+      "assets/images/gaming-expo-3.jpg"
     ],
     "about": "Playtest unreleased titles, watch pro-circuit finals and meet the studios behind your favourite games across three packed halls.",
     "highlights": [
@@ -404,6 +404,17 @@ const EVENTS = [
     ]
   }
 ];
+
+/* index.html lives in the site root, every other page lives in src/pages/ — so image paths
+   need a "../../" prefix on the src/pages/ ones. */
+(function fixImagePaths() {
+  const prefix = /\/pages\/[^/]*$/.test(window.location.pathname) ? "../../" : "";
+  if (!prefix) return;
+  EVENTS.forEach((ev) => {
+    ev.image = prefix + ev.image;
+    ev.gallery = ev.gallery.map((g) => prefix + g);
+  });
+})();
 
 /* Which events the home page shows in each row. */
 const FEATURED_IDS = ["coldplay-live", "food-carnival", "tech-conference", "standup-comedy"];

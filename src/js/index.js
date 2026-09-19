@@ -1,122 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* ==========================================================================
+   Home page — event rows, category shortcuts, hero search, newsletter
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const featuredGrid = document.getElementById("featuredGrid");
+  const popularGrid = document.getElementById("popularGrid");
 
-  const menuicon = document.getElementById('menuicon');
-  const dropdownList = document.getElementById('dropdownList');
-  const cartBtn = document.getElementById('cartBtn');
-  const cartDropdown = document.getElementById('cartDropdown');
-  const bellBtn = document.getElementById('bellBtn');
-  const bellDropdown = document.getElementById('bellDropdown');
-  const userBtn = document.getElementById('userBtn');
-  const userDropdown = document.getElementById('userDropdown');
+  const pick = (ids) => ids.map(getEventById).filter(Boolean);
+  featuredGrid.innerHTML = pick(FEATURED_IDS).map(eventCardHTML).join("");
+  popularGrid.innerHTML = pick(POPULAR_IDS).map(eventCardHTML).join("");
+  bindWishlistToggles(featuredGrid);
+  bindWishlistToggles(popularGrid);
 
-  if (!menuicon) return;
+  // Category shortcuts → Explore, pre-filtered.
+  const catRow = document.getElementById("catRow");
+  catRow.addEventListener("click", (e) => {
+    const btn = e.target.closest(".cat-item");
+    if (!btn) return;
+    catRow.querySelectorAll(".cat-item").forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    const cat = btn.dataset.cat;
+    window.location.href = PAGES + "explore-events.html" + (cat === "More" ? "" : "?category=" + encodeURIComponent(cat));
+  });
 
-  function closeAll() {
-    dropdownList?.classList.add('hidden');
-    cartDropdown?.classList.add('hidden');
-    bellDropdown?.classList.add('hidden');
-    userDropdown?.classList.add('hidden');
-    if (menuicon) {
-      menuicon.innerHTML = '<i class="fa-solid fa-bars text-[14px]"></i>';
+  // Hero search → Explore with ?q=
+  document.getElementById("searchForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = document.getElementById("searchInput").value.trim();
+    window.location.href = PAGES + "explore-events.html" + (q ? "?q=" + encodeURIComponent(q) : "");
+  });
+
+  // Newsletter
+  const form = document.getElementById("newsletterForm");
+  const status = document.getElementById("newsletterStatus");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("newsletterEmail").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.style.color = "#FFC2CF";
+      status.textContent = "Please enter a valid email address.";
+      return;
     }
-  }
-
-  // Menu icon next to title
-  menuicon.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = dropdownList.classList.contains('hidden');
-    closeAll();
-    if (isHidden) {
-      dropdownList.classList.remove('hidden');
-      menuicon.innerHTML = '<i class="fa-solid fa-xmark text-[14px]"></i>';
-    }
-  });
-  
-const menuIcon = document.getElementById('menuIcon');
-const navLinks = document.getElementById('navLinks');
-
-menuIcon.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    // Change icon to X when open
-    menuIcon.innerHTML = navLinks.classList.contains('active') 
-        ? '<i class="fa-solid fa-xmark"></i>' 
-        : '<i class="fa-solid fa-bars"></i>';
-});
-document.addEventListener('click', () => {
-    if (open) {
-      open = false;
-      dropdownList.classList.add('hidden');
-      menuicon.innerHTML = '<i class="fa-solid fa-bars text-[14px]"></i>';
-    }
-  });
-
-  // Cart
-  cartBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = cartDropdown.classList.contains('hidden');
-    closeAll();
-    if (isHidden) cartDropdown.classList.remove('hidden');
-  });
-
-  // Bell
-  bellBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = bellDropdown.classList.contains('hidden');
-    closeAll();
-    if (isHidden) bellDropdown.classList.remove('hidden');
-  });
-
-  // User
-  userBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = userDropdown.classList.contains('hidden');
-    closeAll();
-    if (isHidden) userDropdown.classList.remove('hidden');
-  });
-
-  // Close when click outside
-  document.addEventListener('click', closeAll);
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAll();
+    status.style.color = "#C9F5D0";
+    status.textContent = "Thanks — a confirmation link has been sent to " + email + ".";
+    form.reset();
   });
 });
-const cartBtn = document.getElementById('cartBtn');
-const bellBtn = document.getElementById('bellBtn');
-const userBtn = document.getElementById('userBtn');
-const cartDropdown = document.getElementById('cartDropdown');
-const bellDropdown = document.getElementById('bellDropdown');
-const userDropdown = document.getElementById('userDropdown');
-const menuDropdown = document.getElementById('dropdownList');
-const menuicon = document.getElementById('menuicon');
-
-function closeAll(){
-  cartDropdown?.classList.add('hidden');
-  bellDropdown?.classList.add('hidden');
-  userDropdown?.classList.add('hidden');
-  menuDropdown?.classList.add('hidden');
-  if(menuicon) menuicon.innerHTML = '<i class="fa-solid fa-bars text-[14px]"></i>';
-}
-
-cartBtn?.addEventListener('click', (e)=>{
-  e.stopPropagation();
-  const isHidden = cartDropdown.classList.contains('hidden');
-  closeAll();
-  if(isHidden) cartDropdown.classList.remove('hidden');
-});
-
-bellBtn?.addEventListener('click', (e)=>{
-  e.stopPropagation();
-  const isHidden = bellDropdown.classList.contains('hidden');
-  closeAll();
-  if(isHidden) bellDropdown.classList.remove('hidden');
-});
-
-userBtn?.addEventListener('click', (e)=>{
-  e.stopPropagation();
-  const isHidden = userDropdown.classList.contains('hidden');
-  closeAll();
-  if(isHidden) userDropdown.classList.remove('hidden');
-});
-

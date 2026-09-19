@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const show = input.type === "password";
       input.type = show ? "text" : "password";
       btn.setAttribute("aria-label", show ? "Hide password" : "Show password");
-      btn.querySelector("img").src = "../assets/icons/" + (show ? "eye-off.svg" : "eye.svg");
+      btn.querySelector("img").src = "../../assets/icons/" + (show ? "eye-off.svg" : "eye.svg");
     });
   });
 

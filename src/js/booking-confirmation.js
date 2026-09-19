@@ -17,7 +17,7 @@
 
   function renderBooking() {
     document.getElementById("bookingIdValue").textContent = booking.id;
-    document.getElementById("ticketImage").src = booking.image;
+    document.getElementById("ticketImage").src = imageSrc(booking.image);
     document.getElementById("ticketImage").alt = booking.title;
     document.getElementById("ticketTitle").textContent = booking.title;
     document.getElementById("ticketDateTime").textContent = `${booking.date} · ${booking.time}`;

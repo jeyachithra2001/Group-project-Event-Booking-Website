@@ -16,7 +16,7 @@
   }
 
   function renderSummary() {
-    document.getElementById("summaryImage").src = order.eventImage;
+    document.getElementById("summaryImage").src = imageSrc(order.eventImage);
     document.getElementById("summaryImage").alt = order.eventTitle;
     document.getElementById("summaryTitle").textContent = order.eventTitle;
     document.getElementById("summaryDateTime").textContent = `${formatEventDate(order.eventDate)} · ${order.eventTime}`;
