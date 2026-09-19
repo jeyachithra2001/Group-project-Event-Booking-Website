@@ -106,5 +106,61 @@
     }
   });
 
+  /* ---------------------------------------------------------------------------
+     Demo data. Bookings live only in THIS browser's localStorage, so a fresh browser (or the
+     GitHub Pages site) starts with none. To keep the Past tab from looking empty, each account
+     gets two sample finished bookings once. Set SEED_DEMO_PAST to false to turn this off.
+     --------------------------------------------------------------------------- */
+  const SEED_DEMO_PAST = true;
+
+  function seedDemoPastBookings() {
+    if (!SEED_DEMO_PAST) return;
+    const user = Auth.currentUser();
+    if (!user) return;
+    const flag = "eb_demo_past_seeded_" + user.id;
+    try {
+      if (localStorage.getItem(flag)) return;
+    } catch (e) {
+      return;
+    }
+
+    const samples = [
+      { id: "EBK410276", eventId: "yoga-retreat", eventDate: "2026-08-09", qty: 2, bookedAt: "2026-07-20T10:15:00.000Z" },
+      { id: "EBK528913", eventId: "art-exhibition", eventDate: "2026-07-18", qty: 1, bookedAt: "2026-06-30T16:40:00.000Z" }
+    ];
+
+    const existing = getBookings();
+    const added = [];
+    samples.forEach((d) => {
+      const ev = getEventById(d.eventId);
+      if (!ev || existing.some((b) => b.id === d.id)) return;
+      const t = ev.tickets[0];
+      added.push({
+        id: d.id,
+        status: "upcoming", // shown as "Past" automatically because the date has gone by
+        eventId: ev.id,
+        title: ev.title,
+        image: ev.image,
+        eventDate: d.eventDate,
+        date: formatEventDate(d.eventDate),
+        time: ev.time,
+        venue: ev.venue + ", " + ev.city,
+        tickets: [{ type: t.type, price: t.price, qty: d.qty }],
+        qty: d.qty,
+        total: t.price * d.qty,
+        attendee: { name: user.name, email: user.email, phone: "" },
+        paymentMethod: "demo",
+        bookedAt: d.bookedAt,
+        demo: true
+      });
+    });
+
+    if (added.length) writeJSON(userKey("bookings"), existing.concat(added));
+    try {
+      localStorage.setItem(flag, "1");
+    } catch (e) { /* ignore */ }
+  }
+
+  seedDemoPastBookings();
   render();
 })();
