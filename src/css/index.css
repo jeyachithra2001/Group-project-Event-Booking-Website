@@ -1,3 +1,4 @@
+/* ===== Tokens ===== */
 :root {
   --ink: #1B1730;
   --ink-soft: #58536E;
@@ -185,7 +186,7 @@ img { max-width: 100%; display: block; }
   z-index: -1;
   background:
     linear-gradient(100deg, rgba(20, 14, 46, 0.94) 0%, rgba(30, 20, 68, 0.82) 42%, rgba(79, 61, 224, 0.55) 100%),
-    url("../assets/images/hero-home.jpg") center/cover no-repeat;
+    url("../../assets/images/hero-home.jpg") center/cover no-repeat;
 }
 
 .hero-inner {
@@ -253,14 +254,14 @@ img { max-width: 100%; display: block; }
 .search-bar button:hover { background: var(--indigo-dark); }
 
 /* ===== Categories ===== */
-.categories { padding: 34px 0 8px; }
+.categories { padding: 30px 0 8px; }
 
 .cat-row {
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  padding-bottom: 4px;
   scrollbar-width: none;
+  padding: 4px 0;
 }
 .cat-row::-webkit-scrollbar { display: none; }
 
@@ -547,7 +548,7 @@ img { max-width: 100%; display: block; }
   .search-icon { order: 0; }
   .search-bar button { order: 2; width: 100%; }
   .newsletter-inner { flex-direction: column; align-items: flex-start; }
-  .newsletter-form { width: 100%; }
+  .newsletter-form { width: 100%; flex: 0 0 auto; } /* stop the 420px desktop width becoming a 420px HEIGHT in column layout */
 }
 
 @media (max-width: 560px) {
