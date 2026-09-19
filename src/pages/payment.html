@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — Eventra</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/favicon.svg">
+
+  <!-- 1. Auth guard: runs first, so a logged-out visitor is sent to signup/login before anything paints -->
+  <script src="../js/common.js"></script>
+
+  <!-- 2. Fonts: one normal stylesheet link with display=optional. The header text is drawn once, in its
+          final font (or the fallback) and never re-flows when the web font arrives. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=optional">
+
+  <!-- 3. Styles -->
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/payment.css">
+</head>
+
+<body>
+
+  <!-- Header (identical on every page so it never changes while you navigate) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../../index.html">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
+        Eventra
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="explore-events.html">Explore Events</a>
+        <a href="my-bookings.html">My Bookings</a>
+        <a href="wishlist.html">Wishlist</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <path d="M12 20.5S3 14.9 3 8.9C3 5.9 5.3 3.8 8 3.8c1.7 0 3.3.9 4 2.3.7-1.4 2.3-2.3 4-2.3 2.7 0 5 2.1 5 5.1 0 6-9 11.6-9 11.6Z" stroke="currentColor" stroke-width="1.7" />
+          </svg>
+        </button>
+        <button class="icon-btn avatar-btn" aria-label="Account">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" stroke-width="1.7" />
+            <path d="M4.5 20c1.3-3.6 4.2-5.5 7.5-5.5s6.2 1.9 7.5 5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="../../index.html">Home</a>
+      <a href="explore-events.html">Explore Events</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="wishlist.html">Wishlist</a>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="section-inner">
+
+      <div class="page-header">
+        <h1>Checkout</h1>
+        <p class="page-sub">You're almost there — confirm your details to complete the booking.</p>
+      </div>
+
+      <!-- Empty-order fallback -->
+      <div class="empty-state" id="noOrderState" style="display:none;">
+        <div class="empty-icon">🎟️</div>
+        <h3>No tickets selected yet</h3>
+        <p>Head back to an event and choose your tickets to check out.</p>
+        <a class="btn btn-primary" href="explore-events.html">Browse events</a>
+      </div>
+
+      <div class="payment-layout" id="paymentLayout">
+
+        <!-- Booking summary -->
+        <section class="summary-card" aria-label="Booking summary">
+          <h2>Booking Summary</h2>
+          <div class="summary-event">
+            <img id="summaryImage" alt="">
+            <div>
+              <p class="summary-title" id="summaryTitle"></p>
+              <p class="summary-meta" id="summaryDateTime"></p>
+              <p class="summary-meta" id="summaryVenue"></p>
+            </div>
+          </div>
+
+          <h3 class="summary-subhead">Ticket Details</h3>
+          <ul class="summary-tickets" id="summaryTickets"></ul>
+
+          <div class="summary-total-row">
+            <span>Total Amount</span>
+            <b id="summaryTotal">₹0</b>
+          </div>
+        </section>
+
+        <!-- Attendee + payment -->
+        <form class="checkout-form" id="checkoutForm" novalidate>
+          <section class="form-card">
+            <h2>Attendee Details</h2>
+            <div class="field">
+              <label for="fullName">Full Name <span>*</span></label>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Suriya R" required>
+              <p class="field-error" data-error-for="fullName"></p>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email Address <span>*</span></label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <p class="field-error" data-error-for="email"></p>
+              </div>
+              <div class="field">
+                <label for="phone">Phone Number <span>*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                <p class="field-error" data-error-for="phone"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-card">
+            <h2>Payment Method</h2>
+            <div class="payment-methods">
+              <label class="pay-method">
+                <input type="radio" name="paymentMethod" value="UPI" checked>
+                <span class="pay-method-radio"></span>
+                <span class="pay-method-label">UPI</span>
+                <span class="pay-method-tags">GPay · PhonePe · Paytm</span>
+              </label>
+              <label class="pay-method">
+                <input type="radio" name="paymentMethod" value="Card">
+                <span class="pay-method-radio"></span>
+                <span class="pay-method-label">Credit / Debit Card</span>
+                <span class="pay-method-tags">Visa · Mastercard · RuPay</span>
+              </label>
+              <label class="pay-method">
+                <input type="radio" name="paymentMethod" value="Net Banking">
+                <span class="pay-method-radio"></span>
+                <span class="pay-method-label">Net Banking</span>
+              </label>
+              <label class="pay-method">
+                <input type="radio" name="paymentMethod" value="Wallet">
+                <span class="pay-method-radio"></span>
+                <span class="pay-method-label">Wallet</span>
+                <span class="pay-method-tags">Paytm · Amazon Pay</span>
+              </label>
+            </div>
+
+            <!-- Card fields, shown only when "Card" is selected -->
+            <div class="card-fields" id="cardFields" hidden>
+              <div class="field">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456">
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="cardExpiry">Expiry</label>
+                  <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="field">
+                  <label for="cardCvv">CVV</label>
+                  <input type="text" id="cardCvv" inputmode="numeric" maxlength="3" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="secure-note">
+            <span class="secure-icon">🔒</span>
+            <div>
+              <p class="secure-title">Secure Payment</p>
+              <p class="secure-sub">Your information is safe and encrypted with us.</p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="payBtn">Pay <span id="payAmount">₹0</span></button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="../../index.html">
+          <span class="logo-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          </span>
+          Eventra
+        </a>
+        <p>Find the best events near you and make memories that last.</p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="#">About us</a>
+          <a href="#">Help centre</a>
+          <a href="#">Terms of service</a>
+          <a href="#">Privacy policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Explore</h3>
+          <a href="explore-events.html">Browse events</a>
+          <a href="my-bookings.html">My bookings</a>
+          <a href="wishlist.html">Wishlist</a>
+        </div>
+      </div>
+
+      <div class="footer-social">
+        <h3>Follow along</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-copyright">© 2026 Eventra. All rights reserved.</p>
+  </footer>
+
+  <!-- Page scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/payment.js"></script>
+</body>
+
+</html>

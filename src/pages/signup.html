@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-auth="public">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create your account — Eventra</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/favicon.svg">
+  <!-- Redirects already-signed-in visitors to the home page before anything is painted -->
+  <script src="../js/common.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=optional">
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+  <div class="auth-shell">
+    <aside class="auth-brand">
+      <a class="logo" href="login.html">
+        <img src="../../assets/logos/logo-mark-white.svg" width="26" height="26" alt="">
+        Eventra
+      </a>
+
+      <div class="auth-brand-copy">
+        <h2>Your next great night out starts here</h2>
+        <p>Create a free account to discover events near you, save your favourites and book tickets in a few taps.</p>
+        <ul class="auth-perks">
+          <li><img src="../../assets/icons/ticket.svg" alt="">Book tickets in under a minute</li>
+          <li><img src="../../assets/icons/heart.svg" alt="">Save events to your wishlist</li>
+          <li><img src="../../assets/icons/calendar.svg" alt="">Keep every booking in one place</li>
+        </ul>
+      </div>
+
+      <div class="auth-brand-foot">© 2026 Eventra. All rights reserved.</div>
+    </aside>
+
+    <main class="auth-panel">
+      <div class="auth-card">
+        <h1>Create your account</h1>
+        <p class="auth-sub">Join Eventra — it only takes a minute.</p>
+
+        <p class="auth-notice" id="authNotice" role="alert" hidden></p>
+
+        <form id="signupForm" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <div class="input-wrap">
+              <img class="field-icon" src="../../assets/icons/user.svg" alt="">
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Your full name">
+            </div>
+            <p class="field-error" data-error-for="name"></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <div class="input-wrap">
+              <img class="field-icon" src="../../assets/icons/mail.svg" alt="">
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <img class="field-icon" src="../../assets/icons/lock.svg" alt="">
+              <input type="password" id="password" name="password" autocomplete="new-password" placeholder="Create a password">
+              <button type="button" class="pw-toggle" data-toggle-password="password" aria-label="Show password">
+                <img src="../../assets/icons/eye.svg" alt="">
+              </button>
+            </div>
+            <p class="field-hint">At least 8 characters, with a letter and a number.</p>
+            <p class="field-error" data-error-for="password"></p>
+          </div>
+
+          <div class="field">
+            <label for="confirm">Confirm password</label>
+            <div class="input-wrap">
+              <img class="field-icon" src="../../assets/icons/lock.svg" alt="">
+              <input type="password" id="confirm" name="confirm" autocomplete="new-password" placeholder="Re-enter your password">
+              <button type="button" class="pw-toggle" data-toggle-password="confirm" aria-label="Show password">
+                <img src="../../assets/icons/eye.svg" alt="">
+              </button>
+            </div>
+            <p class="field-error" data-error-for="confirm"></p>
+          </div>
+
+          <label class="check-line">
+            <input type="checkbox" id="terms">
+            <span>I agree to the <a href="#">Terms of service</a> and <a href="#">Privacy policy</a>.</span>
+          </label>
+          <p class="field-error" data-error-for="terms" style="margin:-10px 0 14px;"></p>
+
+          <button type="submit" class="auth-submit" id="submitBtn">Create account</button>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="login.html" data-switch-link>Log in</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/auth.js"></script>
+</body>
+
+</html>
