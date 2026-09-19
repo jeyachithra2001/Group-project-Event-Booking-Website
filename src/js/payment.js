@@ -1,224 +1,122 @@
-/* SUMMARY DETAILS */
+// =============================================================================
+// Payment — renders the pending order, validates attendee details, and
+// creates the booking before handing off to booking-confirmation.html
+// =============================================================================
+(function () {
+  "use strict";
 
-let bookingData = JSON.parse(localStorage.getItem("bookingData"))
+  const order = getPendingOrder();
+  const layout = document.getElementById("paymentLayout");
+  const emptyState = document.getElementById("noOrderState");
 
-let eventId = bookingData.eventId
-let eventImage = bookingData.image
-let eventTitle = bookingData.title
-let eventDate = bookingData.date
-let eventLocation = bookingData.location
-let tickets = bookingData.tickets
-let totalAmount = bookingData.totalAmount
+  if (!order) {
+    layout.style.display = "none";
+    emptyState.style.display = "block";
+    return;
+  }
 
-let paymentTotalAmount = document.getElementById("paymentTotalAmount")
+  function renderSummary() {
+    document.getElementById("summaryImage").src = order.eventImage;
+    document.getElementById("summaryImage").alt = order.eventTitle;
+    document.getElementById("summaryTitle").textContent = order.eventTitle;
+    document.getElementById("summaryDateTime").textContent = `${formatEventDate(order.eventDate)} · ${order.eventTime}`;
+    document.getElementById("summaryVenue").textContent = `${order.venue}, ${order.city}`;
 
-document.getElementById("paymentEventImage").src = bookingData.image
-document.getElementById("paymentEventTitle").textContent = bookingData.title
-document.getElementById("paymentEventDate").textContent = bookingData.date
-document.getElementById("paymentEventLocation").textContent = bookingData.location
+    document.getElementById("summaryTickets").innerHTML = order.tickets
+      .map((t) => `<li><span>${t.type} × ${t.qty}</span><b>${formatPrice(t.price * t.qty)}</b></li>`)
+      .join("");
 
-let ticket = bookingData.tickets[0]
-document.getElementById("ticketType").textContent = ticket.ticketType
-document.getElementById("ticketPrice").textContent = "₹" + ticket.price.toLocaleString("en-IN")
-document.getElementById("ticketQuantity").textContent = "Quantity: " + ticket.quantity
-document.getElementById("ticketSubTotal").textContent = "₹" + ticket.subtotal.toLocaleString("en-IN")
-document.getElementById("paymentTotalAmount").textContent = "₹" + bookingData.totalAmount.toLocaleString("en-IN")
+    document.getElementById("summaryTotal").textContent = formatPrice(order.totalPrice);
+    document.getElementById("payAmount").textContent = formatPrice(order.totalPrice);
+  }
 
-/* GET FROM ELEMENT */
-let paymentForm = document.getElementById("payment-form")
-const fullNameInput = document.getElementById("fullName")
-const emailInput = document.getElementById("email")
-const phoneNoInput = document.getElementById("phoneNo")
-const paymentMethods = document.querySelectorAll("input[name='payment-method']")
+  function toggleCardFields() {
+    const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+    document.getElementById("cardFields").hidden = method !== "Card";
+  }
 
-const upiDetails = document.getElementById("upi-details")
-const cardDetails = document.getElementById("card-details")
-const upiId = document.getElementById("upiId")
-const cardNo = document.getElementById("cardNo")
-const cardName = document.getElementById("cardName")
-const expiry = document.getElementById("expiry")
-const cvv = document.getElementById("cvv")
+  function setFieldError(name, message) {
+    const input = document.getElementById(name);
+    const errorEl = document.querySelector(`[data-error-for="${name}"]`);
+    input.classList.toggle("has-error", Boolean(message));
+    errorEl.textContent = message || "";
+  }
 
+  function validate() {
+    let ok = true;
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
 
-/* HIDE UPI/CARD DETAILS */
-upiDetails.style.display = "none"
-cardDetails.style.display = "none"
+    if (!fullName) { setFieldError("fullName", "Please enter your full name."); ok = false; }
+    else setFieldError("fullName", "");
 
-/* PAYMENT METHOD CHANE */
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setFieldError("email", "Enter a valid email address."); ok = false; }
+    else setFieldError("email", "");
 
-paymentMethods.forEach(function (method) {
-    method.addEventListener("change", function () {
+    if (!/^[+\d][\d\s-]{7,14}$/.test(phone)) { setFieldError("phone", "Enter a valid phone number."); ok = false; }
+    else setFieldError("phone", "");
 
-        // Hide both first
-        upiDetails.style.display = "none"
-        cardDetails.style.display = "none"
+    return ok;
+  }
 
-        // Remove required
-        upiId.required = false
-        cardNo.required = false
-        cardName.required = false
-        expiry.required = false
-        cvv.required = false
-
-        // UPI
-        if (method.value === "upi") {
-            upiDetails.style.display = "block"
-            upiId.required = true
-        }
-
-        // Card
-        else if (method.value === "card") {
-            cardDetails.style.display = "block"
-            cardNo.required = true
-            cardName.required = true
-            expiry.required = true
-            cvv.required = true
-        }
-    })
-})
-
-/* FORM SUBMIT */
-
-paymentForm.addEventListener("submit", function (event) {
-    event.preventDefault()
-
-    /* GET VALUES WHEN USER SUBMIT */
-    const fullName = fullNameInput.value.trim()
-    const email = emailInput.value.trim()
-    const phoneNo = phoneNoInput.value.trim()
-
-    /* VALIDATION */
-
-    // Name validation
-    if (fullName.length < 3) {
-        alert("Please enter a valid name")
-        fullNameInput.focus()
-        return
-    }
-    
-
-    // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Please enter a valid email")
-        emailInput.focus()
-        return
-        console.log(emailPattern.test(email));
-        
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!validate()) {
+      toast("Please fix the highlighted fields", "error");
+      return;
     }
 
-    // Phone validation
-    const phonePattern = /^[0-9]{10}$/
-    if (!phonePattern.test(phoneNo)) {
-        alert("Please enter a valid 10 digit phone number")
-        phoneNoInput.focus()
-        return
-    }
+    const payBtn = document.getElementById("payBtn");
+    payBtn.disabled = true;
+    payBtn.textContent = "Processing…";
 
-    /* PAYMENT METHOD */
-    const selectedPayment = document.querySelector(
-        "input[name='payment-method']:checked"
-    )
+    const booking = {
+      id: generateBookingId(),
+      status: "upcoming",
+      eventId: order.eventId,
+      title: order.eventTitle,
+      image: order.eventImage,
+      eventDate: order.eventDate,
+      date: formatEventDate(order.eventDate),
+      time: order.eventTime,
+      venue: `${order.venue}, ${order.city}`,
+      tickets: order.tickets,
+      qty: order.totalQty,
+      total: order.totalPrice,
+      attendee: {
+        name: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim()
+      },
+      paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+      bookedAt: new Date().toISOString()
+    };
 
-    if (!selectedPayment) {
-        alert("Please select a payment method")
-        return
-    }
+    // Simulate a brief processing delay so the flow feels real.
+    setTimeout(() => {
+      saveBookingRecord(booking);
+      setLastBooking(booking);
+      sessionStorage.removeItem("eb_pending_order");
+      window.location.href = "booking-confirmation.html";
+    }, 900);
+  }
 
-    const paymentMethod = selectedPayment.value
+  // Pre-fill the attendee details from the signed-in account.
+  function prefillFromAccount() {
+    const user = Auth.currentUser();
+    if (!user) return;
+    const nameEl = document.getElementById("fullName");
+    const emailEl = document.getElementById("email");
+    if (nameEl && !nameEl.value) nameEl.value = user.name;
+    if (emailEl && !emailEl.value) emailEl.value = user.email;
+  }
 
-    /* PAYMENT DETAILS */
-
-    let paymentDetails = {}
-    if (paymentMethod === "upi") {
-        const enteredUpi = upiId.value.trim()
-        if (enteredUpi === "") {
-            alert("Please enter your UPI ID")
-            upiId.focus()
-            return
-        }
-
-        paymentDetails = {
-            upiId: enteredUpi
-        }
-    }
-
-    else if (paymentMethod === "card") {
-        const enteredCardNo = cardNo.value.trim()
-        const enteredCardName = cardName.value.trim()
-        const enteredExpiry = expiry.value.trim()
-        const enteredCvv = cvv.value.trim()
-
-        if (enteredCardNo === "") {
-            alert("Please enter card number")
-            cardNo.focus()
-            return
-        }
-
-        if (enteredCardName === "") {
-            alert("Please enter name on card")
-            cardName.focus()
-            return
-        }
-
-        if (enteredExpiry === "") {
-            alert("Please enter card expiry")
-            expiry.focus()
-            return
-        }
-
-        if (!/^[0-9]{3}$/.test(enteredCvv)) {
-            alert("Please enter a valid 3 digit CVV")
-            cvv.focus()
-            return
-        }
-
-        paymentDetails = {
-            cardNo: enteredCardNo,
-            cardName: enteredCardName,
-            expiry: enteredExpiry
-        }
-    }
-
-    /* GENERATE BOOKING ID */
-
-    const bookingId = generateBookingId()
-
-    /* ATTENDEE DATA */
-
-    const attendeeData = {
-        bookingId: bookingId,
-        fullName: fullName,
-        email: email,
-        phoneNo: phoneNo,
-        paymentMethod: paymentMethod,
-        paymentDetails: paymentDetails,
-        eventTitle: bookingData.title,
-        eventDate: bookingData.date,
-        eventLocation: bookingData.location,
-        ticketType: ticket.ticketType,
-        quantity: ticket.quantity,
-        totalAmount: bookingData.totalAmount
-    }
-
-    /* LOCAL STORAGE */
-    localStorage.setItem(
-        "attendeeData",
-        JSON.stringify(attendeeData)
-    )
-
-    /* REDIRECT */
-    window.location.href = "booking-confirmation.html"
-})
-
-/* GENERATE BOOKING ID */
-function generateBookingId() {
-    const prefix = "EBK"
-    const randomNum = Math.floor(Math.random() * 1000000) + 1
-    return prefix + randomNum
-}
-
-
-
-
-
+  document.addEventListener("DOMContentLoaded", () => {
+    prefillFromAccount();
+    renderSummary();
+    toggleCardFields();
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((r) => r.addEventListener("change", toggleCardFields));
+    document.getElementById("checkoutForm").addEventListener("submit", handleSubmit);
+  });
+})();

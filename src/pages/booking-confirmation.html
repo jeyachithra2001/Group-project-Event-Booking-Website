@@ -2,102 +2,187 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magik</title>
-    <!-- STYLE CSS LINK -->
-    <link rel="stylesheet" href="../css/booking-confirmation.css">
-    <!-- TAILWIND CSS LINK -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed — Eventra</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logos/favicon.svg">
+
+  <!-- 1. Auth guard: runs first, so a logged-out visitor is sent to signup/login before anything paints -->
+  <script src="../js/common.js"></script>
+
+  <!-- 2. Fonts: one normal stylesheet link with display=optional. The header text is drawn once, in its
+          final font (or the fallback) and never re-flows when the web font arrives. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=optional">
+
+  <!-- 3. Styles -->
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/booking-confirmation.css">
 </head>
 
 <body>
 
-    <main>
-        <section class="text-center">
-            <img src="../assets/images/success_img.webp" class="w-28 h-28 object-cover inline" alt="success-img">
-            <h2 class="font-bold text-xl m-3">Your Booking is Confirmed!</h2>
-            <p class="text-gray-700 leading-loose">Thank You for Choosing Magik Event Booking. Your Booking has been
-                <br> Successfully Confirmed!
-            </p>
-        </section>
+  <!-- Header (identical on every page so it never changes while you navigate) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
+        Eventra
+      </a>
 
-        <section class="details flex justify-around items-center bg-blue-100 border-2 border-gray-400 p-3 rounded-md">
-            <div>
-                <p>Booking ID</p>
-                <p id="bookingId" class="font-bold text-lg mt-2">EBK786789</p>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="explore-events.html">Explore Events</a>
+        <a href="my-bookings.html">My Bookings</a>
+        <a href="wishlist.html">Wishlist</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <path d="M12 20.5S3 14.9 3 8.9C3 5.9 5.3 3.8 8 3.8c1.7 0 3.3.9 4 2.3.7-1.4 2.3-2.3 4-2.3 2.7 0 5 2.1 5 5.1 0 6-9 11.6-9 11.6Z" stroke="currentColor" stroke-width="1.7" />
+          </svg>
+        </button>
+        <button class="icon-btn avatar-btn" aria-label="Account">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" stroke-width="1.7" />
+            <path d="M4.5 20c1.3-3.6 4.2-5.5 7.5-5.5s6.2 1.9 7.5 5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="index.html">Home</a>
+      <a href="explore-events.html">Explore Events</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="wishlist.html">Wishlist</a>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="section-inner confirmation-inner">
+
+      <div id="confirmationContent">
+        <div class="confirm-badge" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12.5l4.2 4.2L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h1 class="confirm-heading">Your Booking is Confirmed!</h1>
+        <p class="confirm-sub">Thank you for choosing Eventra. Your booking has been successfully confirmed.</p>
+
+        <div class="booking-id-box">
+          <div>
+            <span class="booking-id-label">Booking ID</span>
+            <span class="booking-id-value" id="bookingIdValue"></span>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="copyIdBtn">Copy</button>
+        </div>
+
+        <article class="ticket-card">
+          <div class="ticket-card-main">
+            <img class="ticket-card-image" id="ticketImage" alt="">
+            <div class="ticket-card-info">
+              <h2 class="ticket-card-title" id="ticketTitle"></h2>
+              <p class="ticket-card-meta" id="ticketDateTime"></p>
+              <p class="ticket-card-meta" id="ticketVenue"></p>
+              <div class="ticket-card-grid">
+                <div><span>Ticket Type</span><b id="ticketTypeValue"></b></div>
+                <div><span>Quantity</span><b id="ticketQtyValue"></b></div>
+                <div><span>Total Amount</span><b id="ticketTotalValue"></b></div>
+              </div>
             </div>
-            <div>
-                <button id="copyBtn" class="bg-blue-900 px-3 py-2 text-white rounded-md">Copy</button>
-            </div>
-        </section>
+          </div>
+          <div class="ticket-card-qr">
+            <div class="qr-code" id="qrCode" role="img" aria-label="Booking QR code"></div>
+            <p class="qr-caption">Scan this QR code at the venue gate</p>
+          </div>
+        </article>
 
-        <section class="details border-2 border-gray-400 rounded-md">
-            <article>
-                <div class="h-44 border-b-2 border-gray-200 flex gap-5 p-3">
-                    <div class="summary__event__img">
-                        <img src="../assets/images/download (1).jpg" object-cover rounded-md alt="image">
-                    </div>
-                    <div>
-                        <h5 class="font-bold">Coldplay Live in Concert</h5>
-                        <p class="my-4 text-gray-500"><i class="fa-solid fa-calendar-days"></i> 25 Sep 2006 - 7.00 PM
-                        </p>
-                        <p class="text-gray-500"><i class="fa-solid fa-location-dot"></i> M Chidambaram stadium,
-                            Bangalore</p>
-                    </div>
-            </article>
+        <div class="confirm-actions">
+          <button type="button" class="btn btn-primary" id="downloadBtn">Download Ticket</button>
+          <a class="btn btn-outline" href="my-bookings.html">View My Bookings</a>
+        </div>
 
-            <article>
-                <div class="flex justify-between p-3 border-b-2 border-gray-200">
-                    <div>
-                        <p>Ticket Types</p>
-                        <p class="font-bold">VIP Pass</p>
-                    </div>
-                    <div>
-                        <p>Quantity</p>
-                        <p class="font-bold">2</p>
-                    </div>
-                    <div>
-                        <p>Total Amount</p>
-                        <p class="font-bold">₹<span>9,998</span></p>
-                    </div>
-                </div>
-                </div>
-            </article>
+        <p class="confirm-email-note">A confirmation email has been sent to <b id="emailNote"></b></p>
+      </div>
 
-            <article>
-                <div class="text-center">
-                    <img src="../assets/images/dummy-qr.jpg" class="w-32 inline my-3" alt="QR">
-                    <p>Scan this QR code at the Venue gate</p>
-                </div>
-                <div class="flex justify-center gap-5 m-6">
-                    <button class="bg-blue-900 text-white p-2 border-2 rounded-md w-48 md:w-64 lg:w-80 border-blue-900"><i class="fa-solid fa-download"></i> Download Ticket</button>
-                    <button class="text-blue-900 p-2 border-2 rounded-md w-48 md:w-64 lg:w-80 border-blue-900"><a href="my-bookings.html">View my Bookings</a></button>
-                </div>
-            </article>
-        </section>
+      <div class="empty-state" id="noBookingState" style="display:none;">
+        <div class="empty-icon">🎫</div>
+        <h3>No recent booking found</h3>
+        <p>Book an event to see your confirmation here.</p>
+        <a class="btn btn-primary" href="explore-events.html">Explore events</a>
+      </div>
 
-        <section class="details flex gap-8 bg-blue-100 rounded-md p-3 px-10 items-center">
-            <div>
-                <p class="text-2xl"><i class="fa-solid fa-envelope"></i></i></p>
-            </div>
-            <div>
-                <p>A Confirmation email has been sent to</p>
-                <p class="font-bold leading-loose">riya@gmail.com</p>
-            </div>
-        </section>
+    </div>
+  </main>
 
-    </main>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <span class="logo-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+            <path d="M3 9.5H21" stroke="currentColor" stroke-width="1.8" />
+            <path d="M7.5 3V6.5M16.5 3V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          </span>
+          Eventra
+        </a>
+        <p>Find the best events near you and make memories that last.</p>
+      </div>
 
-<script src="../js/booking-confirmation.js"></script>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="#">About us</a>
+          <a href="#">Help centre</a>
+          <a href="#">Terms of service</a>
+          <a href="#">Privacy policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Explore</h3>
+          <a href="explore-events.html">Browse events</a>
+          <a href="my-bookings.html">My bookings</a>
+          <a href="wishlist.html">Wishlist</a>
+        </div>
+      </div>
+
+      <div class="footer-social">
+        <h3>Follow along</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-copyright">© 2026 Eventra. All rights reserved.</p>
+  </footer>
+
+  <!-- Page scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/booking-confirmation.js"></script>
 </body>
 
 </html>
