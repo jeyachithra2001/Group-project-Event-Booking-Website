@@ -237,7 +237,7 @@ const EVENTS = [
     "id": "art-workshop",
     "title": "Art Workshop",
     "category": "Arts & Culture",
-    "date": "2026-11-13",
+    "date": "2026-09-01",
     "time": "10:00 AM",
     "venue": "Studio Canvas",
     "city": "Bangalore",
