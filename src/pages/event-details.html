@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventBooking - Event Details</title>
+
+    <link rel="stylesheet" href="../css/event-details.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-box">EB</span>
+            <span>EventBooking</span>
+        </div>
+
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="explore-events.html">Explore Events</a>
+            <a href="my-bookings.html">My Bookings</a>
+            <a href="wishlist.html">Wishlist</a>
+        </nav>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <button class="back-button" id="backButton">
+            Back to Events
+        </button>
+
+
+        <!-- EVENT TOP -->
+
+        <section class="event-top">
+
+            <!-- IMAGE -->
+
+            <div class="event-image">
+                <img id="eventImage" src="" alt="Event Image">
+            </div>
+
+
+            <!-- EVENT INFORMATION -->
+
+            <div class="event-information">
+
+                <p class="category" id="eventCategory">
+                    Category
+                </p>
+
+                <h1 id="eventTitle">
+                    Event Title
+                </h1>
+
+                <p class="rating">
+                    4.8 (125 reviews)
+                </p>
+
+
+                <div class="information">
+
+                    <div class="info-item">
+                        <strong>Date & Time</strong>
+                        <p id="eventDate">
+                            25 September 2026 - 7:00 PM
+                        </p>
+                    </div>
+
+
+                    <div class="info-item">
+                        <strong>Location</strong>
+                        <p id="eventLocation">
+                            Bangalore
+                        </p>
+                    </div>
+
+
+                    <div class="info-item">
+                        <strong>Organized By</strong>
+                        <p id="eventOrganizer">
+                            Event Organizer
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="price-card">
+
+                <p>Starting From</p>
+
+                <h2 id="eventPrice">
+                    ₹2,999
+                </h2>
+
+                <p class="small">
+                    onwards
+                </p>
+
+                <button class="book-button" id="topBookButton">
+                    Book Now
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- TABS -->
+
+        <section class="tabs">
+
+            <button class="tab active" data-tab="about">
+                About
+            </button>
+
+            <button class="tab" data-tab="details">
+                Event Details
+            </button>
+
+            <button class="tab" data-tab="venue">
+                Venue
+            </button>
+
+            <button class="tab" data-tab="organizer">
+                Organizer
+            </button>
+
+            <button class="tab" data-tab="reviews">
+                Reviews
+            </button>
+
+        </section>
+
+
+        <!-- TAB CONTENT -->
+
+        <section class="content">
+
+
+            <!-- ABOUT -->
+
+            <div class="tab-content active" id="about">
+
+                <h2>About the Event</h2>
+
+                <p id="eventAbout">
+                    Event information will appear here.
+                </p>
+
+
+                <h3>Event Highlights</h3>
+
+                <ul>
+                    <li>Live entertainment</li>
+                    <li>Well organized event</li>
+                    <li>Comfortable venue</li>
+                    <li>Safe environment</li>
+                </ul>
+
+            </div>
+
+
+            <!-- EVENT DETAILS -->
+
+            <div class="tab-content" id="details">
+
+                <h2>Event Details</h2>
+
+                <div class="detail-line">
+                    <strong>Event Name</strong>
+                    <span id="detailsTitle"></span>
+                </div>
+
+                <div class="detail-line">
+                    <strong>Date & Time</strong>
+                    <span id="detailsDate"></span>
+                </div>
+
+                <div class="detail-line">
+                    <strong>Location</strong>
+                    <span id="detailsLocation"></span>
+                </div>
+
+                <div class="detail-line">
+                    <strong>Organizer</strong>
+                    <span id="detailsOrganizer"></span>
+                </div>
+
+            </div>
+
+
+            <!-- VENUE -->
+
+            <div class="tab-content" id="venue">
+
+                <h2>Venue</h2>
+
+                <p id="venueText">
+                    The event will be conducted at a comfortable
+                    and secure venue.
+                </p>
+
+                <button class="venue-button" id="venueButton">
+                    View Location
+                </button>
+
+            </div>
+
+
+            <!-- ORGANIZER -->
+
+            <div class="tab-content" id="organizer">
+
+                <h2>Organizer</h2>
+
+                <p>
+                    Organized by
+                    <strong id="organizerName"></strong>
+                </p>
+
+                <p>
+                    The organizer manages the event and provides
+                    a smooth experience for all attendees.
+                </p>
+
+            </div>
+
+
+            <!-- REVIEWS -->
+
+            <div class="tab-content" id="reviews">
+
+                <h2>Reviews</h2>
+
+                <div class="review">
+                    <strong>Excellent Event</strong>
+
+                    <p>
+                        The event was well organized and enjoyable.
+                    </p>
+                </div>
+
+                <div class="review">
+                    <strong>Good Experience</strong>
+
+                    <p>
+                        The venue and overall arrangements were good.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TICKETS -->
+
+        <section class="tickets">
+
+            <h2>Ticket Types</h2>
+
+
+            <div class="ticket-table">
+
+                <div class="ticket-heading">
+                    <span>Ticket Type</span>
+                    <span>Price</span>
+                    <span>Quantity</span>
+                </div>
+
+
+                <div class="ticket-row">
+
+                    <span>General Admission</span>
+
+                    <span id="generalPrice">
+                        ₹2,999
+                    </span>
+
+                    <select class="quantity">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                </div>
+
+
+                <div class="ticket-row">
+
+                    <span>VIP Pass</span>
+
+                    <span id="vipPrice">
+                        ₹4,999
+                    </span>
+
+                    <select class="quantity">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                </div>
+
+
+                <div class="ticket-row">
+
+                    <span>Premium Pass</span>
+
+                    <span id="premiumPrice">
+                        ₹7,999
+                    </span>
+
+                    <select class="quantity">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="total">
+
+                <span>Total Amount</span>
+
+                <strong id="totalAmount">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <button class="bottom-book"  id="bottomBookButton">
+                Book Now
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/event-details.js"></script>
+
+</body>
+
+</html>
