@@ -1,0 +1,93 @@
+/* =============================================================================
+   Booking Confirmation — success state, ticket card, QR panel
+   ============================================================================= */
+
+.page-main { padding-bottom: 70px; }
+.confirmation-inner { max-width: 640px; padding-top: 48px; text-align: center; }
+
+.empty-state {
+  text-align: center; padding: 70px 20px; background: var(--card);
+  border: 1px dashed var(--line); border-radius: var(--radius-m); color: var(--ink-soft);
+}
+.empty-state .empty-icon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: #F1EFFD; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+.empty-state h3 { color: var(--ink); font-size: 1.1rem; margin: 0 0 6px; }
+.empty-state p { margin: 0 0 20px; font-size: 0.9rem; }
+
+.btn { border: none; border-radius: 999px; padding: 12px 22px; font-size: 0.92rem; font-weight: 700; text-align: center; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease; cursor: pointer; }
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--indigo); color: #fff; }
+.btn-primary:hover { background: var(--indigo-dark); }
+.btn-outline { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-outline:hover { border-color: var(--indigo); color: var(--indigo-dark); }
+.btn-sm { padding: 8px 16px; font-size: 0.82rem; }
+
+.confirm-badge {
+  width: 76px; height: 76px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22C067, #1E9E4A);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 16px 32px -14px rgba(30, 158, 74, 0.55);
+  animation: badgePop 0.5s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes badgePop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.confirm-heading {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 1.7rem; color: var(--violet-deep); margin: 0 0 8px;
+}
+.confirm-sub { color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 26px; }
+
+.booking-id-box {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #F8F7FE; border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  text-align: left;
+}
+.booking-id-label { display: block; font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 3px; }
+.booking-id-value { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--indigo-dark); letter-spacing: 0.02em; }
+
+/* ---- ticket card ---- */
+.ticket-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  text-align: left;
+  margin-bottom: 26px;
+}
+.ticket-card-main { display: flex; gap: 16px; padding: 20px; }
+.ticket-card-image { width: 84px; height: 84px; border-radius: var(--radius-s); object-fit: cover; flex-shrink: 0; }
+.ticket-card-title { margin: 0 0 4px; font-weight: 700; color: var(--ink); font-size: 1rem; }
+.ticket-card-meta { margin: 0 0 2px; font-size: 0.82rem; color: var(--ink-soft); }
+.ticket-card-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  margin-top: 12px;
+}
+.ticket-card-grid span { display: block; font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 2px; }
+.ticket-card-grid b { font-size: 0.9rem; color: var(--ink); }
+
+.ticket-card-qr {
+  border-top: 2px dashed var(--line);
+  padding: 22px 20px 24px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  background: #FAF9FC;
+}
+.qr-code { width: 132px; height: 132px; }
+.qr-caption { margin: 0; font-size: 0.8rem; color: var(--ink-soft); }
+
+.confirm-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px;
+}
+
+.confirm-email-note { font-size: 0.85rem; color: var(--ink-soft); }
+.confirm-email-note b { color: var(--ink); }
+
+@media (max-width: 560px) {
+  .ticket-card-main { flex-direction: column; }
+  .ticket-card-image { width: 100%; height: 150px; }
+}
+
